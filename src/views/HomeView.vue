@@ -109,7 +109,7 @@ header {
   padding: 1em 1.5em;
 }
 .title {
-  font-size: clamp(2rem, 8vw, 9rem);
+  font-size: clamp(1.6rem, 9vw, 4rem);
 	color: #000;
   line-height: 1;
 }
