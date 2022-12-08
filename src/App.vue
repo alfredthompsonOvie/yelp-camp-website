@@ -1,15 +1,14 @@
 <template>
-  <RouterView />
+	<RouterView />
 </template>
 
 <script>
-// import { RouterLink, RouterView } from 'vue-router'
+export default {
+	name: "App",
+};
 </script>
 
-
 <style scoped>
-
-
 /* nav {
   width: 100%;
   font-size: 12px;
@@ -30,7 +29,4 @@ nav a {
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);
 } */
-
-
-
 </style>
