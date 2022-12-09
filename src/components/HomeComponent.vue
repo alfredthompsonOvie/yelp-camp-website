@@ -218,9 +218,6 @@ export default {
 </script>
 
 <style scoped>
-/* .container {
-	background-color: #eee;
-} */
 header {
 	padding: 1.5em 1.5em;
 }
