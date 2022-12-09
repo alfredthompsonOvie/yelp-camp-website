@@ -4,5 +4,516 @@
   max-width: 1440px;
   margin: 0 auto;
 	background-color: #eee;
+}
+
+.camp-illustration-testimonial{
+	padding: 3em 1.5em;
+	background-color: #eee;
+	display: flex;
+	align-items: center;
+}
+.testimonial-comment {
+	font-size: 1.5rem;
+	line-height: 1.4;
+	font-weight: bold;
+}
+.testimonial-profile {
+	display: flex;
+	align-items: center;
+	margin: 1.5em 0 0;
+	font-size: .8rem;
+	line-height: 1.5;
+}
+.testimonial-profile img + * {
+	margin-left: 1em;
+}
+.testimonial-profile img {
+	width: 3em;
+}
+/** THE FOLLOWING STYLES APPLIES TO THE main section */
+/* !FORM=========================== */
+/* changed content to form */
+main {
+	padding: 0 1.5em;
+}
+.form {
+	/* margin: 0 auto; */
+	padding: 2em 0;
+}
+.form-contents {
+	max-width: 450px;
+}
+.form-heading, .form__title {
+	margin-bottom: 1em;
+	font-size: 1.5rem;
+}
+form .form-control + .form-control {
+	margin-top: 1em;
+}
+
+.submit {
+	width: 100%;
+	padding: 1.2em;
+	border-radius: 5px;
+	font-size: 1rem;
+	margin-top: 0.5em;
+	border: none;
+	background-color: #eee;
+	background-color: #fff;
+}
+
+textarea {
+	width: 100%;
+	margin-top: 0.5em;
+	background-color: #eee;
+	border: none;
+	border-radius: 5px;
+	padding: 1em;
+	line-height: 1.5;
+}
+
+input[type="submit"], .submit {
+	background-color: black;
+	color: #eee;
+	cursor: pointer;
+	transition: all 0.3s ease-out;
+}
+input[type="submit"]:hover, .submit:hover {
+	background-color: transparent;
+	border: 1px solid black;
+	color: #000;
+} 
+
+.cta-addCamp {
+	text-decoration: underline;
+	color: #888;
+	display: block;
+	margin-top: 1em;
+}
+.account{
+	margin-top: 1em;
+}
+.account a{
+	text-decoration: underline;
+	color: rgb(0, 187, 187);
+	font-weight: 600;
+}
+/* !campgrounds cards=========================== */
+.campgrounds-sites {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 355px));
+	grid-gap: 2em;
+	padding: 3.5em 0;
+	/* perspective: (1000px);
+	transition: all .3s; */
 
 }
+.campCard {
+	padding: 0.7em;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-direction: column;
+	transition: all .3s;
+}
+.campCard:hover {
+	transform: scale(1.02);
+}
+
+.campCard img {
+	width: 100%;
+	border-radius: 5px;
+}
+.campCard * + * {
+	margin-top: 1em;
+}
+.campCard p {
+	margin-bottom: 1em;
+}
+.campCard a {
+	display: block;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+	padding: 1em;
+	text-align: center;
+	text-decoration: none;
+	font-weight: 900;
+	color: #444;
+	margin-top: auto;
+	width: 100%;
+	transition: all .3s;
+}
+.cardBtn:hover{
+	transform: translateY(-4px);
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+	transform: translateZ(20px);
+
+}
+/* ! individual campground=========================== */
+.card{
+	padding: 1.3em;
+	box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
+	border-radius: 5px;
+ margin-bottom: 2em;
+}
+.card img {
+ border-radius: 5px;
+ width: 100%;
+}
+.card * + * {
+ margin-top: .5em;
+}
+.card-heading{
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+}
+.card p{
+	font-size: .8rem;
+	line-height: 1.2;
+}
+
+.reviews {
+	box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
+ border-radius: 5px;
+	padding: 1.3em;
+ padding-top: 0;
+ margin-bottom: 3em;
+}
+.review-comment-title{
+ margin-bottom: 1em;
+	display: flex;
+ align-items: center;
+ justify-content: space-between;
+}
+.reviews > * + * {
+ border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.review-comment{
+ padding: 1.5em 0;
+}
+.btnContainer{
+ padding: 2em 0 0;
+}
+.cta-leave-a-review {
+ display: inline-block;
+ background-color: #000;
+ padding: 1em;
+ display: flex;
+ align-items: center;
+ gap: 1em;
+ color: #fff;
+ width: 13em;
+ border-radius: 5px;
+}
+.mapContainer{
+	padding: 1.3em;
+	box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
+ border-radius: 5px;
+ margin-bottom: 1em;
+	overflow: hidden;
+}
+.mapContainer img {
+ width: 100%;
+	height: 100%;
+}
+
+/** THE FOLLOWING STYLES APPLIES TO THE footer */
+.footer {
+	display: flex;
+	align-items: center;
+	padding: 0 1.5em;
+	height: var(--height);
+}
+/** THE FOLLOWING STYLES APPLIES TO THE media queries */
+@media (min-width: 350px) {
+	.backBtn {
+		font-size: 0.85rem;
+	}
+	.main-logo img {
+		width: 105px;
+	}
+}
+@media (min-width: 380px) {
+	.backBtn {
+		font-size: 1rem;
+	}
+	.main-logo img {
+		width: 118px;
+	}
+}
+@media (min-width: 412px) {
+	.form-heading, .form__title {
+		font-size: 2rem;
+	}
+	.camp-contents_home{
+		padding: 2em 2.5em;
+	}
+	.nav-bar__home{
+		padding: 2em 2.5em;
+
+	}
+}
+/* @media (min-width: 450px) and (max-width: 767px) */
+@media (min-width: 450px){
+	.nav-bar__sign-in, .camp-contents{
+		padding: 0 2em;
+	}
+	.camp-illustration-testimonial{
+		padding: 3em 2em;
+	}
+	.sponsors-brands img {
+		width: 7.7em;
+	}
+	.camp-contents--description__home{
+		max-width: 500px;
+	}
+}@media (min-width: 480px){
+	.mapContainer{
+		height: 320px;
+	}
+}
+@media (min-width: 580px){
+	.camp-illustration_home{
+		height: 18em;
+	}
+	.form.search-form {
+		background-color: #eee;
+		padding: 3em 2em;
+	}
+ .form-control-search{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+ }
+ .form-control-search input + input{
+  margin-left: 1em;
+ }
+ .form-control-search input{
+  margin-top: 0;
+ }
+ .form-control-search input[type='search']{
+  flex: 2;
+  background-color: #fff;
+  padding-left: 2.5em;
+  z-index: 1;
+ }
+ .form-control-search input[type='submit']{
+  flex: 1;
+ }
+ .search-icon{
+  top: 16px;
+ }
+}
+@media (min-width: 595px){
+	.campgrounds-sites {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		justify-content: space-between;
+		grid-gap: 2em;
+		padding: 3.5em 0;
+	}
+}
+/* @media (min-width: 450px) and (max-width: 750px) */
+@media (min-width: 768px) and (max-width: 991px){
+	.nav-bar, 	main, .footer {
+		padding: 0 3em;
+	}
+	.camp-contents--title {
+		font-size: 3.5rem;
+	}
+	.blockText{
+		display: inline;
+	}
+	.camp-contents_home{
+		padding-right: 5em;
+		padding-left: 3em;
+	}
+}
+/* @media (min-width: 750px)  */
+@media (min-width: 992px) {
+	.container {
+		display: grid;
+		grid-template-rows: 5.5em auto 5.5em;
+		grid-template-columns: 1fr 5fr 1fr 4fr 1fr;
+		min-height: 100vh;
+	}
+
+	.nav-bar {
+		grid-row: 1;
+		grid-column: 2;
+		padding: 0;
+	}
+	.nav-bar__sign-in {
+		padding-right: 1.5em;
+	}
+
+	.nav-bar.camp {
+		grid-row: 1;
+		grid-column: 2/5;
+	}
+	.nav-list.camp {
+		position: static;
+		width: 100%;
+		height: var(--height);
+		background-color: transparent;
+		z-index: 1;
+		transition: 0.5s;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		flex-direction: row;
+	}
+	.nav-item.camp {
+		width: initial;
+		text-align: center;
+		margin: 0;
+	}
+	.nav-link.camp {
+		display: block;
+		padding: 8px;
+		font-size: 1rem;
+		transition: 0.3s;
+		color: #999;
+	}
+	.nav-item.marginRight {
+		margin-right: auto;
+	}
+	.nav-link.camp.logout{
+		background-color: #000;
+  border-radius: 5px;
+		padding: .8em 1.2em;
+	}
+	.backBtn {
+		font-size: 0.87rem;
+	}
+	/* form */
+	.form-heading, .form__title {
+		margin-bottom: 1em;
+		font-size: 1.5rem;
+	}
+	/* camp-contents */
+	.camp-contents{
+		grid-row: 2;
+		grid-column: 2;
+		margin-bottom: 0;
+		padding-left: 0;
+		display: flex;
+		align-items: center;
+		/* background-color: red; */
+	}
+	.camp-contents.camp-contents_home{
+		display: block;
+		padding: 0;
+		align-self: flex-end;
+		padding-right: 2em;
+	}
+	.container.home{
+		background-color: #eee;
+	}
+	.camp-contents--title {
+		/* font-size: 2.2rem; */
+		font-size: clamp(3rem, 5vw, 3.5rem);
+	}
+	.camp-illustration{
+		grid-row: 1/-1;
+		grid-column: 4/-1;
+	}
+	.camp-illustration_home{
+		/* grid-row: 1/-1;
+		grid-column: 4/-1; */
+		height: 100%;
+		background-image: url(../Assets/Hero\ Image.jpg);
+	}
+	.camp-contents--description__home{
+		max-width: 450px;
+	}
+	.testimonial-content{
+		max-width: 250px;
+		margin: 0 auto;
+	}
+	.testimonial-comment{
+		font-size: 1.2rem;
+	}
+	/* main */
+	.main {
+		grid-row: 2;
+		grid-column: 2/5;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, auto);
+		grid-gap: 2em;
+		padding: 0;
+	}
+	.mapContainer {
+		grid-column: 1;
+		grid-row: 1;
+	}
+	.campground-details {
+		grid-column: 2;
+		grid-row: 1;
+	}
+	.reviews {
+		grid-column: 2;
+		grid-row: 2;
+		padding: 2em;
+		padding-top: 0;
+		margin-bottom: 0em;
+	}
+	/* form */
+	.form {
+		grid-row: 1/-1;
+		grid-column: 1/-1;
+		margin: 0 auto;
+	}
+	.form.account{
+		margin: 0;
+	}
+	/* camp sites */
+	.campgrounds {
+		grid-row: 1/-1;
+		grid-column: 1/-1;
+	}
+	.campCard a {
+		font-size: 0.7rem;
+	}
+	/* individual campground */
+	.card{
+		padding: 2em;
+		margin-bottom: 0em;
+	}
+	.footer {
+		grid-row: 3;
+		grid-column: 2/5;
+		padding: 0;
+	}
+}
+@media (min-width:1000px){
+	.camp-contents--description{
+		font-size: 1.1rem;
+	}
+}
+@media (min-width:1200px){
+	.campgrounds-sites {
+		grid-gap: 3em;
+	}
+	.testimonial-content{
+		max-width: 300px;
+		margin: 0 auto;
+	}
+	.testimonial-comment{
+		font-size: 1.5rem;
+	}
+	.camp-contents{
+		padding-right: 3em;
+	}
+	.nav-bar__sign-in{
+		padding-right: 3em;
+	}
+	.form-heading, .form__title {
+		font-size: 2rem;
+	}
+}
+
+

@@ -45,7 +45,7 @@
 						<span>See locations for all camps.</span>
 					</li>
 				</ul>
-				<RouterLink to="/about" class="cta">View Campgrounds</RouterLink>
+				<RouterLink :to="{ name: 'campgrounds' }" class="cta">View Campgrounds</RouterLink>
 			</section>
 			<section class="sponsors">
 				<p>Partnered with:</p>
