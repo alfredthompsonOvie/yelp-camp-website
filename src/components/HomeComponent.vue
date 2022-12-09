@@ -2,7 +2,7 @@
 	<main class="container">
 		<header>
 			<RouterLink to="/">
-				<img src="@/assets/images/logo.svg" alt="YelpCamp logo" />
+				<img src="@/assets/images/Logo.svg" alt="YelpCamp logo" />
 			</RouterLink>
 		</header>
 
