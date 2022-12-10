@@ -322,7 +322,7 @@ header {
 		overflow: hidden;
 	}
 	.hero__img--desktop {
-		widows: 100%;
+		width: 100%;
 		min-height: 100%;
 	}
 	.content__wrapper {

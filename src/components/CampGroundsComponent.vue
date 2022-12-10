@@ -49,18 +49,10 @@
 						@click="mobileNav = !mobileNav"
 						v-if="!mobileNav"
 					>
-						<img
-							src="@/assets/images/HamburgerMenu.svg"
-							alt="hamburger icon"
-							class="openMenu"
-						/>
+						<font-awesome-icon icon="fa-solid fa-bars" class="openMenu" />
 					</button>
 					<button type="button" @click="mobileNav = !mobileNav" v-else>
-						<img
-							src="@/assets/images/Close.svg"
-							alt="close icon"
-							class="closeMenu isHidden"
-						/>
+						<font-awesome-icon icon="fa-solid fa-xmark" class="closeMenu" />
 					</button>
 				</Transition>
 			</div>
@@ -146,8 +138,7 @@
 
 					<h4>Onay Beach</h4>
 					<p>
-						This is one of the best beach camping sites, beautiful and
-						pristine.
+						This is one of the best beach camping sites, beautiful and pristine.
 					</p>
 					<a
 						href="individualCampground.html"
@@ -199,8 +190,7 @@
 
 					<h4>Buloy Springs</h4>
 					<p>
-						This is one of the best beach camping sites, beautiful and
-						pristine.
+						This is one of the best beach camping sites, beautiful and pristine.
 					</p>
 					<a
 						href="individualCampground.html"
@@ -210,9 +200,6 @@
 					>
 				</div>
 			</div>
-			<!-- <div class="campgrounds">
-
-			</div> -->
 		</main>
 		<footer class="footer">
 			<img src="@/assets/images/Logo.svg" alt="site logo" />
@@ -260,12 +247,20 @@ export default {
 </script>
 
 <style scoped>
+main {
+	padding: 0 1.5em;
+}
 /* search page */
 /* .form.search-form {
 	background-color: #eee;
 	padding-inline: 2em;
 } */
-.search-form .form-contents, .form__search .form-contents {
+.openMenu,
+.closeMenu {
+	font-size: 1.6em;
+}
+.search-form .form-contents,
+.form__search .form-contents {
 	max-width: 400px;
 }
 .search-header {
@@ -299,16 +294,15 @@ export default {
 /* ============================================== */
 .form__search {
 	background-color: #eee;
-	padding-inline: 1.5em;
-	border-radius: 6px;
+	padding: 2em 1.5em;
+	/* border-radius: 6px; */
 }
 fieldset {
 	max-width: 450px;
-
 }
 .form__title {
 	font-weight: 800;
-	margin-bottom: .4em;
+	margin-bottom: 0.4em;
 	font-size: 2.46rem;
 	font-size: clamp(1.7rem, 6.6vw, 2.46rem);
 	/* font-size: clamp(2rem, 8vw, 2.46rem); */
@@ -394,41 +388,146 @@ fieldset {
 .hamburger img.closeMenu {
 	width: 80%;
 }
-@media (min-width: 580px){
+/* !campgrounds cards=========================== */
+/* !campgrounds cards=========================== */
+/* !campgrounds cards=========================== */
+/* !campgrounds cards=========================== */
+.campgrounds-sites {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 320px));
+	grid-gap: 2em;
+	padding: 3.5em 0;
+	justify-content: center;
+}
+.campCard {
+	padding: 0.8em;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-direction: column;
+	transition: all 0.3s;
+	border-radius: 5.5px;
+}
+.campCard:hover {
+	transform: scale(1.02);
+}
+
+.campCard img {
+	width: 100%;
+	border-radius: 5px;
+}
+.campCard * + * {
+	margin-top: 1em;
+}
+.campCard p {
+	margin-bottom: 1.2em;
+}
+.campCard a {
+	display: block;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+	padding: 1em;
+	text-align: center;
+	text-decoration: none;
+	font-weight: 900;
+	color: #444;
+	margin-top: auto;
+	width: 100%;
+	transition: all 0.3s;
+	border-radius: 5px;
+}
+.cardBtn:hover {
+	transform: translateY(-4px);
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+	transform: translateZ(20px);
+}
+@media (min-width: 580px) {
 	.form__search {
 		background-color: #eee;
 		padding: 3em 2em;
 	}
- .form__group {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-	/* gap: 1em; */
+	.form__group {
+		display: flex;
+		align-items: flex-start;
+		justify-content: flex-start;
+		/* gap: 1em; */
+	}
+	.form__group .submit {
+		margin-top: 0;
+		margin-left: 1em;
+	}
 
- }
- .form__group .submit {
-  margin-top: 0;
-	margin-left: 1em;
- }
+	.form-control-search .submit {
+		flex: 1;
+	}
+	.search-icon {
+		top: 18px;
+	}
 
- .form-control-search .submit {
-  flex: 1;
- }
- .search-icon{
-  top: 18px;
- }
-}
-@media (min-width: 768px) and (max-width: 991px){
-	.nav-bar, main, .footer {
-		padding: 0 3em;
+	.campCard-img {
+		height: 180px;
 	}
 }
-@media (min-width: 992px){
+@media (min-width: 595px){
+	.campgrounds-sites {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		justify-content: space-between;
+		grid-gap: 2em;
+		padding: 3.5em 0;
+	}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+	.nav-bar,
+	main,
+	.footer {
+		padding: 0 3em;
+	}
+	.form__search {
+		border-radius: 6px;
+	}
+}
+@media (min-width: 992px) {
 	.nav-bar {
 		padding-inline: 0;
 	}
+	main {
+		padding: 0;
+	}
+	.main {
+		grid-row: 2;
+		grid-column: 2/5;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, auto);
+		grid-gap: 1em;
+		padding: 0;
+	}
 	.form__search {
 		width: 100%;
+		border-radius: 6px;
+		grid-row: 1;
+		grid-column: 1/-1;
 	}
+	.campgrounds-sites {
+		padding-top: 2em;
+		grid-row: 2;
+		grid-column: 1/-1;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
 	}
+	.campCard img {
+	min-height: 150px;
+}
+.campCard a {
+	font-size: 1.05rem;
+}
+}
+@media(min-width: 1200px){
+	.campgrounds-sites {
+		grid-gap: 2em;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+	}
+}
 </style>

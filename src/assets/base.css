@@ -29,7 +29,10 @@ a {
   text-decoration: none;
   display: inline-block;
 }
-
+button {
+  border: 0;
+  cursor: pointer;
+}
 fieldset {
   border: 0;
 }

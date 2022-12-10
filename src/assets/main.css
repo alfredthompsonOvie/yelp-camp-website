@@ -33,9 +33,9 @@
 /** THE FOLLOWING STYLES APPLIES TO THE main section */
 /* !FORM=========================== */
 /* changed content to form */
-main {
+/* main {
 	padding: 0 1.5em;
-}
+} */
 .form {
 	/* margin: 0 auto; */
 	padding: 2em 0;
@@ -98,57 +98,7 @@ input[type="submit"]:hover, .submit:hover {
 	color: rgb(0, 187, 187);
 	font-weight: 600;
 }
-/* !campgrounds cards=========================== */
-.campgrounds-sites {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(250px, 355px));
-	grid-gap: 2em;
-	padding: 3.5em 0;
-	/* perspective: (1000px);
-	transition: all .3s; */
 
-}
-.campCard {
-	padding: 0.7em;
-	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-	display: flex;
-	align-items: flex-start;
-	justify-content: flex-start;
-	flex-direction: column;
-	transition: all .3s;
-}
-.campCard:hover {
-	transform: scale(1.02);
-}
-
-.campCard img {
-	width: 100%;
-	border-radius: 5px;
-}
-.campCard * + * {
-	margin-top: 1em;
-}
-.campCard p {
-	margin-bottom: 1em;
-}
-.campCard a {
-	display: block;
-	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-	padding: 1em;
-	text-align: center;
-	text-decoration: none;
-	font-weight: 900;
-	color: #444;
-	margin-top: auto;
-	width: 100%;
-	transition: all .3s;
-}
-.cardBtn:hover{
-	transform: translateY(-4px);
-	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-	transform: translateZ(20px);
-
-}
 /* ! individual campground=========================== */
 .card{
 	padding: 1.3em;
@@ -306,15 +256,7 @@ input[type="submit"]:hover, .submit:hover {
   top: 16px;
  }
 }
-@media (min-width: 595px){
-	.campgrounds-sites {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		justify-content: space-between;
-		grid-gap: 2em;
-		padding: 3.5em 0;
-	}
-}
+
 /* @media (min-width: 450px) and (max-width: 750px) */
 @media (min-width: 768px) and (max-width: 991px){
 	.nav-bar, 	main, .footer {
@@ -388,6 +330,9 @@ input[type="submit"]:hover, .submit:hover {
 	.backBtn {
 		font-size: 0.87rem;
 	}
+	main {
+		padding: 0;
+	}
 	/* form */
 	.form-heading, .form__title {
 		margin-bottom: 1em;
@@ -437,15 +382,7 @@ input[type="submit"]:hover, .submit:hover {
 		font-size: 1.2rem;
 	}
 	/* main */
-	.main {
-		grid-row: 2;
-		grid-column: 2/5;
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: repeat(2, auto);
-		grid-gap: 2em;
-		padding: 0;
-	}
+
 	.mapContainer {
 		grid-column: 1;
 		grid-row: 1;
@@ -471,10 +408,6 @@ input[type="submit"]:hover, .submit:hover {
 		margin: 0;
 	}
 	/* camp sites */
-	.campgrounds {
-		grid-row: 1/-1;
-		grid-column: 1/-1;
-	}
 	.campCard a {
 		font-size: 0.7rem;
 	}
