@@ -23,9 +23,14 @@ const router = createRouter({
       component: () => import('../views/CampGroundsView.vue')
     },
     {
-      path: '/individualCampground',
-      name: 'individualCampground',
-      component: () => import('../views/IndividualCampgroundView.vue')
+      path: '/CampDetails',
+      name: 'DetailsView',
+      component: () => import('../views/DetailsView.vue')
+    },
+    {
+      path: '/Comments',
+      name: 'CommentsView',
+      component: () => import('../views/CommentsView.vue')
     },
   ]
 })

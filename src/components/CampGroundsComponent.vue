@@ -1,12 +1,10 @@
 <template>
 	<div class="container">
-		<nav class="nav-bar camp">
-			<!-- site logo -->
+		<!-- <nav class="nav-bar camp">
 			<RouterLink to="/" class="main-logo">
 				<img src="@/assets/images/Logo.svg" alt="site logo" />
 			</RouterLink>
 
-			<!-- site mobile nav bar-->
 			<ul class="mobileNav__list" v-if="mobileNav">
 				<li class="mobileNav__item">
 					<RouterLink :to="{ name: 'home' }" class="mobileNav__link"
@@ -24,7 +22,7 @@
 					>
 				</li>
 			</ul>
-			<!-- desktop -->
+
 			<ul class="nav-list camp" v-if="!mobile">
 				<li class="nav-item camp marginRight">
 					<RouterLink to="/" class="nav-link camp">Home</RouterLink>
@@ -41,7 +39,6 @@
 				</li>
 			</ul>
 
-			<!-- hamburger -->
 			<div class="hamburger" v-if="mobile">
 				<Transition name="fade-up" mode="out-in">
 					<button
@@ -56,8 +53,8 @@
 					</button>
 				</Transition>
 			</div>
-		</nav>
-
+		</nav> -->
+		<MainNav  class="nav-bar"/>
 		<main class="main">
 			<form class="form search-form form__search">
 				<fieldset>
@@ -104,7 +101,7 @@
 						One of the most famous hikes in Benguet is Mt Ulap in Itogon
 					</p>
 					<RouterLink
-						:to="{ name: 'individualCampground' }"
+						:to="{ name: 'DetailsView' }"
 						class="cardBtn"
 						data-camp="mount ulap"
 						>View Campground</RouterLink
@@ -123,7 +120,7 @@
 						Boracay.
 					</p>
 					<RouterLink
-						:to="{ name: 'individualCampground' }"
+						:to="{ name: 'DetailsView' }"
 						class="cardBtn"
 						data-camp="Calaguas Islands"
 						>View Campground</RouterLink
@@ -209,11 +206,13 @@
 
 <script>
 import { ref, onMounted } from "vue";
+import MainNav from "./navigation/MainNav.vue";
 import BaseInput from "@/components/BaseInput.vue";
 
 export default {
 	name: "CampGroundsView",
 	components: {
+		MainNav,
 		BaseInput,
 	},
 	setup() {
@@ -255,10 +254,7 @@ main {
 	background-color: #eee;
 	padding-inline: 2em;
 } */
-.openMenu,
-.closeMenu {
-	font-size: 1.6em;
-}
+
 .search-form .form-contents,
 .form__search .form-contents {
 	max-width: 400px;
@@ -333,61 +329,7 @@ fieldset {
 .fade-up-move {
 	transition: all 0.3s ease;
 }
-.nav-bar {
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	height: var(--height);
-	padding: 0 1.5em;
-	position: relative;
-	/* z-index: 99; */
-}
 
-/* add new campground */
-.mobileNav__list {
-	position: fixed;
-	top: var(--height);
-	left: 0;
-	right: 0;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.9);
-	z-index: 9;
-	/* overflow-x: hidden; */
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-}
-
-.mobileNav__item {
-	width: 100%;
-	text-align: center;
-	margin: 1em 0;
-}
-.mobileNav__link {
-	display: block;
-	padding: 8px;
-	font-size: 36px;
-	transition: 0.3s;
-	color: #eee;
-}
-.hamburger {
-	margin-left: auto;
-	cursor: pointer;
-}
-.hamburger button {
-	width: 2.5em;
-	height: 2.5em;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-.hamburger img {
-	width: 100%;
-}
-.hamburger img.closeMenu {
-	width: 80%;
-}
 /* !campgrounds cards=========================== */
 /* !campgrounds cards=========================== */
 /* !campgrounds cards=========================== */
@@ -477,6 +419,7 @@ fieldset {
 		padding: 3.5em 0;
 	}
 }
+/*!TODO edit this remove .nav-bar */
 @media (min-width: 768px) and (max-width: 991px) {
 	.nav-bar,
 	main,
@@ -530,4 +473,33 @@ fieldset {
 
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </style>
