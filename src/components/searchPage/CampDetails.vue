@@ -2,7 +2,7 @@
 	<div class="container">
 		<MainNav />
 
-		<main class="main">
+		<main class="main detailsPageContents">
 			<div class="campground-details cardInfo">
 				<div class="card">
 					<img
@@ -62,7 +62,10 @@
 					</p>
 				</div>
 				<div class="btnContainer inner-padding">
-					<RouterLink :to="{ name: 'CommentsView'}" class="ctaBtn cta-leave-a-review">
+					<RouterLink
+						:to="{ name: 'CommentsView' }"
+						class="ctaBtn cta-leave-a-review"
+					>
 						<span>
 							<img
 								src="@/assets/images/ChatBubble.svg"
@@ -78,7 +81,9 @@
 			</div>
 		</main>
 		<footer class="footer">
-			<img src="@/assets/images/Logo.svg" alt="site logo" />
+			<RouterLink :to="{ name: 'home' }">
+				<img src="@/assets/images/Logo.svg" alt="site logo" />
+			</RouterLink>
 		</footer>
 	</div>
 </template>
@@ -116,23 +121,15 @@ main {
 	}
 }
 @media (min-width: 992px) {
-	/* make this main global */
 	main {
-		padding: 0;
-		grid-row: 2;
-		grid-column: 2/5;
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: repeat(2, auto);
-		grid-gap: 2em;
-		padding: 0;
-	}
-
+	padding: 0;
+}
 	.mapContainer {
 		grid-column: 1;
 		grid-row: 1;
 		max-width: 100%;
 		width: 100%;
+		/* height: 300px; */
 	}
 	.campground-details {
 		grid-column: 2;

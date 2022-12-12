@@ -31,16 +31,16 @@
 					YelpCamp is a curated list of the best camping spots on Earth.
 					Unfiltered and unbiased reviews.
 				</p>
-				<ul class="feedback--list">
-					<li class="feedback--item">
+				<ul class="features--list">
+					<li class="features--item">
 						<img src="@/assets/images/Checkmark.svg" alt="Checkmark" />
 						<span>Add your own camp suggestions.</span>
 					</li>
-					<li class="feedback--item">
+					<li class="features--item">
 						<img src="@/assets/images/Checkmark.svg" alt="Checkmark" />
 						<span>Leave reviews and experiences.</span>
 					</li>
-					<li class="feedback--item">
+					<li class="features--item">
 						<img src="@/assets/images/Checkmark.svg" alt="Checkmark" />
 						<span>See locations for all camps.</span>
 					</li>
@@ -147,7 +147,7 @@ export default {
 					"-=1"
 				)
 				.from(
-					".feedback--item",
+					".features--item",
 					{
 						autoAlpha: 0.01,
 						y: 10,
@@ -155,7 +155,7 @@ export default {
 						stagger: 0.1,
 						ease: "power4",
 						onComplete: () => {
-							gsap.from(".feedback--item", {
+							gsap.from(".features--item", {
 								clearProps: "all",
 							});
 						},
@@ -240,16 +240,16 @@ header {
 .home-content > * {
 	margin-bottom: 0.5em;
 }
-.feedback--list {
+.features--list {
 	margin-top: 0.8em;
 }
-.feedback--item {
+.features--item {
 	display: flex;
 	align-items: center;
 	gap: 0.5em;
 	line-height: 1;
 }
-.feedback--item + .feedback--item {
+.features--item + .features--item {
 	margin-top: 0.8em;
 }
 .cta {

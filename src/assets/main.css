@@ -36,14 +36,14 @@
 /* main {
 	padding: 0 1.5em;
 } */
-.form {
-	/* margin: 0 auto; */
+
+/* .form {
 	padding: 2em 0;
-}
+} */
 .form-contents {
 	max-width: 450px;
 }
-.form-heading, .form__title {
+.form__title {
 	margin-bottom: 1em;
 	font-size: 1.5rem;
 }
@@ -193,7 +193,7 @@ input[type="submit"]:hover, .submit:hover {
 	}
 }
 @media (min-width: 412px) {
-	.form-heading, .form__title {
+.form__title {
 		font-size: 2rem;
 	}
 	.camp-contents_home{
@@ -226,10 +226,6 @@ input[type="submit"]:hover, .submit:hover {
 @media (min-width: 580px){
 	.camp-illustration_home{
 		height: 18em;
-	}
-	.form.search-form {
-		background-color: #eee;
-		padding: 3em 2em;
 	}
  .form-control-search{
   display: flex;
@@ -303,8 +299,22 @@ input[type="submit"]:hover, .submit:hover {
 	main {
 		padding: 0;
 	}
+	
+	main.searchPageContents, main.detailsPageContents {
+		grid-row: 2;
+		grid-column: 2/5;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, auto);
+		grid-gap: 1em;
+		/* padding: 0; */
+	}
+	main.detailsPageContents {
+		grid-gap: 2em;
+		/* padding: 0; */
+	}
 	/* form */
-	.form-heading, .form__title {
+.form__title {
 		margin-bottom: 1em;
 		font-size: 1.5rem;
 	}
@@ -353,10 +363,10 @@ input[type="submit"]:hover, .submit:hover {
 	}
 	/* main */
 
-	.mapContainer {
+	/* .mapContainer {
 		grid-column: 1;
 		grid-row: 1;
-	}
+	} */
 	.campground-details {
 		grid-column: 2;
 		grid-row: 1;
@@ -369,16 +379,16 @@ input[type="submit"]:hover, .submit:hover {
 		margin-bottom: 0em;
 	}
 	/* form */
-	.form {
+	/* .form {
 		grid-row: 1/-1;
 		grid-column: 1/-1;
 		margin: 0 auto;
-	}
+	} */
 	.form.account{
 		margin: 0;
 	}
 	/* camp sites */
-	.campCard a {
+	.campground a {
 		font-size: 0.7rem;
 	}
 	/* individual campground */
@@ -398,9 +408,6 @@ input[type="submit"]:hover, .submit:hover {
 	}
 }
 @media (min-width:1200px){
-	.campgrounds-sites {
-		grid-gap: 3em;
-	}
 	.testimonial-content{
 		max-width: 300px;
 		margin: 0 auto;
@@ -414,7 +421,7 @@ input[type="submit"]:hover, .submit:hover {
 	.nav-bar__sign-in{
 		padding-right: 3em;
 	}
-	.form-heading, .form__title {
+	.form__title {
 		font-size: 2rem;
 	}
 }

@@ -1,70 +1,16 @@
 <template>
 	<div class="container">
-		<!-- <nav class="nav-bar camp">
-			<RouterLink to="/" class="main-logo">
-				<img src="@/assets/images/Logo.svg" alt="site logo" />
-			</RouterLink>
-
-			<ul class="mobileNav__list" v-if="mobileNav">
-				<li class="mobileNav__item">
-					<RouterLink :to="{ name: 'home' }" class="mobileNav__link"
-						>Home</RouterLink
-					>
-				</li>
-				<li class="mobileNav__item">
-					<RouterLink to="#" class="userName mobileNav__link"
-						>Johndoe</RouterLink
-					>
-				</li>
-				<li class="mobileNav__item">
-					<RouterLink :to="{ name: 'home' }" class="logout mobileNav__link"
-						>Logout</RouterLink
-					>
-				</li>
-			</ul>
-
-			<ul class="nav-list camp" v-if="!mobile">
-				<li class="nav-item camp marginRight">
-					<RouterLink to="/" class="nav-link camp">Home</RouterLink>
-				</li>
-				<li class="nav-item camp marginLeft">
-					<RouterLink to="#" class="userName nav-link camp marginLeft"
-						>Johndoe</RouterLink
-					>
-				</li>
-				<li class="nav-item camp">
-					<RouterLink :to="{ name: 'campgrounds' }" class="logout nav-link camp"
-						>Logout</RouterLink
-					>
-				</li>
-			</ul>
-
-			<div class="hamburger" v-if="mobile">
-				<Transition name="fade-up" mode="out-in">
-					<button
-						type="button"
-						@click="mobileNav = !mobileNav"
-						v-if="!mobileNav"
-					>
-						<font-awesome-icon icon="fa-solid fa-bars" class="openMenu" />
-					</button>
-					<button type="button" @click="mobileNav = !mobileNav" v-else>
-						<font-awesome-icon icon="fa-solid fa-xmark" class="closeMenu" />
-					</button>
-				</Transition>
-			</div>
-		</nav> -->
-		<MainNav  class="nav-bar"/>
-		<main class="main">
-			<form class="form search-form form__search">
+		<MainNav class="nav-bar" />
+		<main class="searchPageContents">
+			<form class="search-form form__search">
 				<fieldset>
-					<legend class="form-heading form__title">Welcome to YelpCamp!</legend>
+					<legend class="form__title">Welcome to YelpCamp!</legend>
 					<p>
 						view our hand-picked campgrounds from all over the world, or add
 						your own.
 					</p>
 
-					<div class="form-control-search form__group">
+					<div class="form-control-search form__group--search">
 						<BaseInput
 							placeholder="Search for camps"
 							class="form__control search"
@@ -82,116 +28,115 @@
 						>Or add your own campground</RouterLink
 					>
 				</fieldset>
-				<!-- <div class="form-contents">
-				</div>
-				<div class="search-header">
-					<h1 class="form-heading">Welcome to YelpCamp!</h1>
-				</div> -->
 			</form>
-			<div class="campgrounds-sites">
-				<div class="campCard" data-camp="mount ulap">
+
+			<div class="campgrounds">
+				<div class="campground">
 					<img
-						class="campCard-img"
+						class="campCard-img campground__img"
 						src="@/assets/images/CampImages/HighQualityImages/Mount-Ulap.png"
 						alt="an image of mount ulap"
 					/>
 
-					<h4 class="campCard-title">Mount Ulap</h4>
-					<p class="campCard-details">
+					<h4 class="campCard-title campground__title">Mount Ulap</h4>
+					<p class="campCard-details campground__details">
 						One of the most famous hikes in Benguet is Mt Ulap in Itogon
 					</p>
 					<RouterLink
-						:to="{ name: 'DetailsView' }"
-						class="cardBtn"
+						:to="{ name: 'CampDetailsView',  params: {id: 'Mount-Ulap'} }"
+						class="campground__btn"
 						data-camp="mount ulap"
 						>View Campground</RouterLink
 					>
 				</div>
-				<div class="campCard" data-camp="Calaguas Islands">
+				<div class="campground">
 					<img
-						class="campCard-img"
+						class="campCard-img campground__img"
 						src="@/assets/images/CampImages/HighQualityImages/Calaguas-Island.jpg"
 						alt="an image of Calaguas Islands"
 					/>
 
-					<h4>Calaguas Islands</h4>
-					<p>
+					<h4 class="campCard-title campground__title">Calaguas Islands</h4>
+					<p class="campground__details">
 						A paradise of islands that can rival the white sand beauty of
 						Boracay.
 					</p>
 					<RouterLink
-						:to="{ name: 'DetailsView' }"
-						class="cardBtn"
+						:to="{ name: 'CampDetailsView', params: {id: 'Calaguas-Islands'} }"
+						class="campground__btn"
 						data-camp="Calaguas Islands"
 						>View Campground</RouterLink
 					>
 				</div>
-				<div class="campCard" data-camp="Onay Beach">
+				<div class="campground">
 					<img
-						class="campCard-img"
+						class="campCard-img campground__img"
 						src="@/assets/images/CampImages/HighQualityImages/Onay-Beach.jpg"
 						alt="an image of Onay Beach"
 					/>
 
-					<h4>Onay Beach</h4>
-					<p>
+					<h4 class="campground__title">Onay Beach</h4>
+					<p class="campground__details">
 						This is one of the best beach camping sites, beautiful and pristine.
 					</p>
 					<a
 						href="individualCampground.html"
-						class="cardBtn"
+						class="campground__btn"
 						data-camp="Onay Beach"
 						>View Campground</a
 					>
 				</div>
-				<div class="campCard" data-camp="Seven Sisters Waterfall">
+				<div class="campground">
 					<img
-						class="campCard-img"
+						class="campCard-img campground__img"
 						src="@/assets/images/CampImages/HighQualityImages/Seven-Sisters-Waterfall.jpg"
 						alt="an image of Seven Sisters Waterfall"
 					/>
 
-					<h4>Seven Sisters Waterfall</h4>
-					<p>The Seven Sisters is the 39th tallest waterfall in Norway.</p>
+					<h4 class="campground__title">Seven Sisters Waterfall</h4>
+					<p class="campground__details">
+						The Seven Sisters is the 39th tallest waterfall in Norway.
+					</p>
 					<a
 						href="individualCampground.html"
-						class="cardBtn"
+						class="campground__btn"
 						data-camp="Seven Sisters Waterfall"
 						>View Campground</a
 					>
 				</div>
-				<div class="campCard" data-camp="Latik Riverside">
+				<div class="campground">
 					<img
-						class="campCard-img"
+						class="campCard-img campground__img"
 						src="@/assets/images/CampImages/HighQualityImages/Latik-Riverside.jpg"
 						alt="an image of Latik Riverside"
 					/>
 
-					<h4>Latik Riverside</h4>
-					<p>
+					<h4 class="campground__title">Latik Riverside</h4>
+					<p class="campground__details">
 						Philippines is one of the most dazzling countries in all of Asia.
 					</p>
 					<a
 						href="individualCampground.html"
-						class="cardBtn"
+						class="campground__btn"
 						data-camp="Latik Riverside"
 						>View Campground</a
 					>
 				</div>
-				<div class="campCard" data-camp="Buloy Springs">
+
+				<div class="campground">
 					<img
-						class="campCard-img"
+						class="campCard-img campground__img"
 						src="@/assets/images/CampImages/HighQualityImages/Buloy-Springs.jpg"
 						alt="an image of Buloy Springs"
 					/>
 
-					<h4>Buloy Springs</h4>
-					<p>
+					<h4 class="campground__title">Buloy Springs</h4>
+					<p class="campground__details">
 						This is one of the best beach camping sites, beautiful and pristine.
 					</p>
 					<a
 						href="individualCampground.html"
-						class="cardBtn"
+						class="campground__btn"
 						data-camp="Buloy Springs"
 						>View Campground</a
 					>
@@ -199,7 +144,9 @@
 			</div>
 		</main>
 		<footer class="footer">
-			<img src="@/assets/images/Logo.svg" alt="site logo" />
+			<RouterLink :to="{ name: 'home' }">
+				<img src="@/assets/images/Logo.svg" alt="site logo" />
+			</RouterLink>
 		</footer>
 	</div>
 </template>
@@ -249,13 +196,6 @@ export default {
 main {
 	padding: 0 1.5em;
 }
-/* search page */
-/* .form.search-form {
-	background-color: #eee;
-	padding-inline: 2em;
-} */
-
-.search-form .form-contents,
 .form__search .form-contents {
 	max-width: 400px;
 }
@@ -334,14 +274,14 @@ fieldset {
 /* !campgrounds cards=========================== */
 /* !campgrounds cards=========================== */
 /* !campgrounds cards=========================== */
-.campgrounds-sites {
+.campgrounds {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(250px, 320px));
 	grid-gap: 2em;
 	padding: 3.5em 0;
 	justify-content: center;
 }
-.campCard {
+.campground {
 	padding: 0.8em;
 	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
 	display: flex;
@@ -351,21 +291,21 @@ fieldset {
 	transition: all 0.3s;
 	border-radius: 5.5px;
 }
-.campCard:hover {
+/* .campground:hover {
 	transform: scale(1.02);
-}
+} */
 
-.campCard img {
+.campground__img {
 	width: 100%;
 	border-radius: 5px;
 }
-.campCard * + * {
+.campground * + * {
 	margin-top: 1em;
 }
-.campCard p {
+.campground__details {
 	margin-bottom: 1.2em;
 }
-.campCard a {
+.campground__btn {
 	display: block;
 	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
 	padding: 1em;
@@ -378,40 +318,37 @@ fieldset {
 	transition: all 0.3s;
 	border-radius: 5px;
 }
-.cardBtn:hover {
+.campground__btn:hover {
 	transform: translateY(-4px);
 	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-	transform: translateZ(20px);
+	/* transform: translateZ(20px); */
 }
 @media (min-width: 580px) {
 	.form__search {
 		background-color: #eee;
 		padding: 3em 2em;
 	}
-	.form__group {
+	.form__group--search {
 		display: flex;
 		align-items: flex-start;
 		justify-content: flex-start;
-		/* gap: 1em; */
+		margin-top: 1.2em;
 	}
-	.form__group .submit {
+	.form__group--search .submit {
 		margin-top: 0;
 		margin-left: 1em;
-	}
-
-	.form-control-search .submit {
 		flex: 1;
 	}
 	.search-icon {
 		top: 18px;
 	}
 
-	.campCard-img {
+	.campground__img {
 		height: 180px;
 	}
 }
-@media (min-width: 595px){
-	.campgrounds-sites {
+@media (min-width: 595px) {
+	.campgrounds {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 		justify-content: space-between;
@@ -437,69 +374,29 @@ fieldset {
 	main {
 		padding: 0;
 	}
-	.main {
-		grid-row: 2;
-		grid-column: 2/5;
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: repeat(2, auto);
-		grid-gap: 1em;
-		padding: 0;
-	}
 	.form__search {
 		width: 100%;
 		border-radius: 6px;
 		grid-row: 1;
 		grid-column: 1/-1;
 	}
-	.campgrounds-sites {
+	.campgrounds {
 		padding-top: 2em;
 		grid-row: 2;
 		grid-column: 1/-1;
 		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
 	}
-	.campCard img {
-	min-height: 150px;
+	.campground__img {
+		min-height: 150px;
+	}
+	.campground__btn {
+		font-size: 1.05rem;
+	}
 }
-.campCard a {
-	font-size: 1.05rem;
-}
-}
-@media(min-width: 1200px){
-	.campgrounds-sites {
+@media (min-width: 1200px) {
+	.campgrounds {
 		grid-gap: 2em;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </style>

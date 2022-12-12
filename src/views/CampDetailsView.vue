@@ -1,13 +1,13 @@
 <template>
-  <DetailsComponent />
+  <CampDetails />
 </template>
 
 <script>
-import DetailsComponent from '../components/searchPage/DetailsComponent.vue';
+import CampDetails from '../components/searchPage/CampDetails.vue';
 export default {
   name: "DetailsView",
   components: {
-    DetailsComponent,
+    CampDetails,
   },
   setup() {
     

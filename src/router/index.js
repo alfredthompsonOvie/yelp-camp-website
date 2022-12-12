@@ -23,12 +23,12 @@ const router = createRouter({
       component: () => import('../views/CampGroundsView.vue')
     },
     {
-      path: '/CampDetails',
-      name: 'DetailsView',
-      component: () => import('../views/DetailsView.vue')
+      path: '/camps/:id',
+      name: 'CampDetailsView',
+      component: () => import('../views/CampDetailsView.vue')
     },
     {
-      path: '/Comments',
+      path: '/comment',
       name: 'CommentsView',
       component: () => import('../views/CommentsView.vue')
     },
