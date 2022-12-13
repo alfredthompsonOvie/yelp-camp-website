@@ -3,7 +3,7 @@
 #app {
   max-width: 1440px;
   margin: 0 auto;
-	background-color: #eee;
+	/* background-color: #eee; */
 }
 
 .camp-illustration-testimonial{
@@ -30,13 +30,19 @@
 .testimonial-profile img {
 	width: 3em;
 }
-/** THE FOLLOWING STYLES APPLIES TO THE main section */
+/** THE FOLLOWING STYLES APPLIES TO THE main section form */
 /* !FORM=========================== */
+/* ! ================================================ */
+/* ! ================================================ */
+/* ! ================================================ */
+/* ! ================================================ */
+/* ! ================================================ */
+/* ! ================================================ */
+/* ! ================================================ */
 /* changed content to form */
 /* main {
 	padding: 0 1.5em;
 } */
-
 /* .form {
 	padding: 2em 0;
 } */
@@ -53,15 +59,21 @@ form .form-control + .form-control {
 
 .submit {
 	width: 100%;
-	padding: 1.2em;
+	padding: 1.2em 2em;
 	border-radius: 5px;
 	font-size: 1rem;
 	margin-top: 0.5em;
 	border: none;
-	background-color: #eee;
-	background-color: #fff;
+	background-color: black;
+	color: #eee;
+	cursor: pointer;
+	transition: all 0.3s ease-out;
 }
-
+.submit:hover {
+	background-color: transparent;
+	border: 1px solid black;
+	color: #000;
+} 
 textarea {
 	width: 100%;
 	margin-top: 0.5em;
@@ -72,17 +84,7 @@ textarea {
 	line-height: 1.5;
 }
 
-input[type="submit"], .submit {
-	background-color: black;
-	color: #eee;
-	cursor: pointer;
-	transition: all 0.3s ease-out;
-}
-input[type="submit"]:hover, .submit:hover {
-	background-color: transparent;
-	border: 1px solid black;
-	color: #000;
-} 
+
 
 .cta-addCamp {
 	text-decoration: underline;
@@ -99,8 +101,25 @@ input[type="submit"]:hover, .submit:hover {
 	font-weight: 600;
 }
 
+/* ! ================================================ */
+/* ! ================================================ */
+/* ! ================================================ */
+/* ! ================================================ */
+/* ! ================================================ */
+/* ! ================================================ */
+/* ! ================================================ */
+/* ! ================================================ */
+/* ! ================================================ */
 /* ! individual campground=========================== */
-.card{
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/*! -- -- --- ---  --- --- --- REMOVE -- - --- --REMOVE- -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* .card{
 	padding: 1.3em;
 	box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
 	border-radius: 5px;
@@ -121,9 +140,9 @@ input[type="submit"]:hover, .submit:hover {
 .card p{
 	font-size: .8rem;
 	line-height: 1.2;
-}
+} */
 
-.reviews {
+/* .reviews {
 	box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
  border-radius: 5px;
 	padding: 1.3em;
@@ -144,8 +163,8 @@ input[type="submit"]:hover, .submit:hover {
 }
 .btnContainer{
  padding: 2em 0 0;
-}
-.cta-leave-a-review {
+} */
+/* .cta-leave-a-review {
  display: inline-block;
  background-color: #000;
  padding: 1em;
@@ -166,7 +185,19 @@ input[type="submit"]:hover, .submit:hover {
 .mapContainer img {
  width: 100%;
 	height: 100%;
-}
+} */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
+/* -- -- --- ---  --- --- --- -- -- - --- --- --- - - -- */
 
 /** THE FOLLOWING STYLES APPLIES TO THE footer */
 .footer {
@@ -227,30 +258,6 @@ input[type="submit"]:hover, .submit:hover {
 	.camp-illustration_home{
 		height: 18em;
 	}
- .form-control-search{
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  position: relative;
- }
- .form-control-search input + input{
-  margin-left: 1em;
- }
- .form-control-search input{
-  margin-top: 0;
- }
- .form-control-search input[type='search']{
-  flex: 2;
-  background-color: #fff;
-  padding-left: 2.5em;
-  z-index: 1;
- }
- .form-control-search input[type='submit']{
-  flex: 1;
- }
- .search-icon{
-  top: 16px;
- }
 }
 
 /*! main global styles */

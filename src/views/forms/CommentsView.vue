@@ -1,13 +1,13 @@
 <template>
 	<div class="container">
-		<!-- 1 -->
-		<!-- 1.1 HEADER-->
     <MainNav />
-		<!-- 1 -->
-		<!-- 1.2 CONTENTS-->
+
 		<main class="main">
-			<form action="#" method="post" class="form">
-				<h1 class="page-title form-heading">Add New Comment</h1>
+			<form class="form">
+				<fieldset>
+					<legend class="form__title">Add New Comment</legend>
+
+				</fieldset>
 
 				<div class="form-control">
 					<label for="description">Description</label>
@@ -25,7 +25,9 @@
 			</form>
 		</main>
 		<footer class="footer">
-			<img src="@/assets/images/Logo.svg" alt="site logo" />
+			<router-link :to="{ name: 'home' }">
+				<img src="@/assets/images/Logo.svg" alt="site logo" />
+			</router-link>
 		</footer>
 	</div>
 </template>

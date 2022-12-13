@@ -30,7 +30,12 @@ const router = createRouter({
     {
       path: '/comment',
       name: 'CommentsView',
-      component: () => import('../views/CommentsView.vue')
+      component: () => import('../views/forms/CommentsView.vue')
+    },
+    {
+      path: '/addcamp',
+      name: 'AddCampgroundView',
+      component: () => import('@/views/forms/AddCampgroundView.vue')
     },
   ]
 })
