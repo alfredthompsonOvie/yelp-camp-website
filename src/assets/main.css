@@ -3,33 +3,8 @@
 #app {
   max-width: 1440px;
   margin: 0 auto;
-	/* background-color: #eee; */
 }
 
-.camp-illustration-testimonial{
-	padding: 3em 1.5em;
-	background-color: #eee;
-	display: flex;
-	align-items: center;
-}
-.testimonial-comment {
-	font-size: 1.5rem;
-	line-height: 1.4;
-	font-weight: bold;
-}
-.testimonial-profile {
-	display: flex;
-	align-items: center;
-	margin: 1.5em 0 0;
-	font-size: .8rem;
-	line-height: 1.5;
-}
-.testimonial-profile img + * {
-	margin-left: 1em;
-}
-.testimonial-profile img {
-	width: 3em;
-}
 /** THE FOLLOWING STYLES APPLIES TO THE main section form */
 /* !FORM=========================== */
 /* ! ================================================ */
@@ -43,19 +18,18 @@
 /* main {
 	padding: 0 1.5em;
 } */
-/* .form {
+.form {
 	padding: 2em 0;
-} */
-.form-contents {
+}
+.form__contents {
 	max-width: 450px;
 }
 .form__title {
+	font-weight: 800;
 	margin-bottom: 1em;
-	font-size: 1.5rem;
+	font-size: clamp(1.7rem, 6.6vw, 2.46rem);
 }
-form .form-control + .form-control {
-	margin-top: 1em;
-}
+
 
 .submit {
 	width: 100%;

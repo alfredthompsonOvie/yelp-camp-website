@@ -3,16 +3,16 @@
 		<MainNav class="nav-bar" />
 		<main class="searchPageContents">
 			<form 
-			class="search-form form__search" 
+			class="form form__search" 
 			@submit.prevent="submit">
-				<fieldset>
+				<fieldset class="form__contents">
 					<legend class="form__title">Welcome to YelpCamp!</legend>
-					<p>
+					<p class="form__description">
 						view our hand-picked campgrounds from all over the world, or add
 						your own.
 					</p>
 
-					<div class="form-control-search form__group--search">
+					<div class="form__group--search">
 						<BaseInput
 							placeholder="Search for camps"
 							class="search"
@@ -210,13 +210,11 @@ export default {
 main {
 	padding: 0 1.5em;
 }
-.form__search .form-contents {
+/* .form__search .form__contents {
 	max-width: 400px;
-}
-.search-header {
-	max-width: 400px;
-}
-.search-header p {
+} */
+
+.form__description {
 	margin-bottom: 1em;
 }
 
@@ -248,7 +246,6 @@ main {
 .form__search {
 	background-color: #eee;
 	padding: 2em 1.5em;
-	/* border-radius: 6px; */
 }
 fieldset {
 	max-width: 450px;
@@ -258,7 +255,6 @@ fieldset {
 	margin-bottom: 0.4em;
 	font-size: 2.46rem;
 	font-size: clamp(1.7rem, 6.6vw, 2.46rem);
-	/* font-size: clamp(2rem, 8vw, 2.46rem); */
 }
 .form__group {
 	position: relative;
@@ -335,7 +331,6 @@ fieldset {
 }
 @media (min-width: 580px) {
 	.form__search {
-		background-color: #eee;
 		padding: 3em 2em;
 	}
 	.form__group--search {

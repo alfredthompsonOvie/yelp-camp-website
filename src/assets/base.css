@@ -61,3 +61,27 @@ ul span {
 	display: inline-block;
 	color: #888;
 }
+.camp-illustration-testimonial{
+	padding: 3em 1.5em;
+	background-color: #eee;
+	display: flex;
+	align-items: center;
+}
+.testimonial-comment {
+	font-size: 1.5rem;
+	line-height: 1.4;
+	font-weight: bold;
+}
+.testimonial-profile {
+	display: flex;
+	align-items: center;
+	margin: 1.5em 0 0;
+	font-size: .8rem;
+	line-height: 1.5;
+}
+.testimonial-profile img + * {
+	margin-left: 1em;
+}
+.testimonial-profile img {
+	width: 3em;
+}

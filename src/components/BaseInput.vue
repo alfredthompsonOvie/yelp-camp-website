@@ -79,7 +79,7 @@ export default {
 }
 label.label {
 	font-size: 1rem;
-	margin-bottom: .3em;
+	margin-bottom: .6em;
 	display: inline-block;
 }
 input::placeholder {
@@ -113,6 +113,9 @@ input.input--addCamp {
 
 input.input__error {
 	border: 2px solid red;
+}
+.form__control + .form__control {
+	margin-top: 1.2em;
 }
 /* ======================================== */
 /* ======================================== */
