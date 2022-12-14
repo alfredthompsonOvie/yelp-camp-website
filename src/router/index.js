@@ -37,6 +37,16 @@ const router = createRouter({
       name: 'AddCampgroundView',
       component: () => import('@/views/forms/AddCampgroundView.vue')
     },
+    {
+      path: '/login',
+      name: 'SignIn',
+      component: () => import('@/views/forms/SignIn.vue')
+    },
+    {
+      path: '/signup',
+      name: 'SignUp',
+      component: () => import('@/views/forms/SignUp.vue')
+    },
   ]
 })
 

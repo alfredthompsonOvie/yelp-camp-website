@@ -12,30 +12,60 @@
 					>Home</RouterLink
 				>
 			</li>
-			<li class="mobileNav__item">
-				<RouterLink to="#" class="userName mobileNav__link">Johndoe</RouterLink>
-			</li>
-			<li class="mobileNav__item">
-				<RouterLink :to="{ name: 'home' }" class="logout mobileNav__link"
-					>Logout</RouterLink
-				>
-			</li>
+			<template v-if="loggedIn">
+				<li class="nav__item marginLeft">
+					<RouterLink to="#" class="userName nav__link marginLeft"
+						>Johndoe</RouterLink
+					>
+				</li>
+				<li class="nav__item">
+					<RouterLink :to="{ name: 'campgrounds' }" class="logout nav__link"
+						>Logout</RouterLink
+					>
+				</li>
+			</template>
+			<template v-else>
+				<li class="nav__item marginLeft">
+					<RouterLink :to="{ name: 'SignIn'}" class="userName nav__link marginLeft"
+						>Login</RouterLink
+					>
+				</li>
+				<li class="nav__item">
+					<RouterLink :to="{ name: 'SignUp' }" class="logout nav__link"
+						>Create an account</RouterLink
+					>
+				</li>
+			</template>
 		</ul>
 		<!-- desktop -->
 		<ul class="nav__list" v-if="!mobile">
 			<li class="nav__item marginRight">
 				<RouterLink to="/" class="nav__link">Home</RouterLink>
 			</li>
-			<li class="nav__item marginLeft">
-				<RouterLink to="#" class="userName nav__link marginLeft"
-					>Johndoe</RouterLink
-				>
-			</li>
-			<li class="nav__item">
-				<RouterLink :to="{ name: 'campgrounds' }" class="logout nav__link"
-					>Logout</RouterLink
-				>
-			</li>
+			<template v-if="loggedIn">
+				<li class="nav__item marginLeft">
+					<RouterLink to="#" class="userName nav__link marginLeft"
+						>Johndoe</RouterLink
+					>
+				</li>
+				<li class="nav__item">
+					<RouterLink :to="{ name: 'campgrounds' }" class="logout nav__link"
+						>Logout</RouterLink
+					>
+				</li>
+			</template>
+			<template v-else>
+				<li class="nav__item marginLeft">
+					<RouterLink :to="{ name: 'SignIn'}" class="userName nav__link marginLeft"
+						>Login</RouterLink
+					>
+				</li>
+				<li class="nav__item">
+					<RouterLink :to="{ name: 'SignUp' }" class="logout nav__link"
+						>Create an account</RouterLink
+					>
+				</li>
+			</template>
 		</ul>
 
 		<!-- hamburger -->
@@ -60,6 +90,7 @@ export default {
 		const mobile = ref(null);
 		const mobileNav = ref(null);
 		const windowWidth = ref(null);
+		const loggedIn = ref(false);
 
 		function checkScreen() {
 			windowWidth.value = window.innerWidth;
@@ -81,6 +112,7 @@ export default {
 		return {
 			mobile,
 			mobileNav,
+			loggedIn
 		};
 	},
 };
