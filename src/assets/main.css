@@ -4,6 +4,13 @@
   max-width: 1440px;
   margin: 0 auto;
 }
+/** Nav Bar=========================== */
+/* ! ================================================ */
+/* ! ================================================ */
+
+.marginRight {
+	margin-right: auto;
+}
 
 /** THE FOLLOWING STYLES APPLIES TO THE main section form */
 /* !FORM=========================== */
@@ -42,6 +49,8 @@
 	color: #eee;
 	cursor: pointer;
 	transition: all 0.3s ease-out;
+
+	/* margin-top: 1.2em; */
 }
 .submit:hover {
 	background-color: transparent;
@@ -75,6 +84,23 @@ textarea {
 	text-decoration: underline;
 	color: rgb(0, 187, 187);
 	font-weight: 600;
+}
+textarea {
+	width: 100%;
+	margin-top: 0.5em;
+	background-color: #eee;
+	border: none;
+	border-radius: 5px;
+	padding: 1em;
+	line-height: 1.5;
+}
+.input__error {
+	border: 2px solid red;
+}
+.errorMessage {
+	color: red;
+	z-index: 99;
+	font-size: .9rem;
 }
 
 /* ! ================================================ */
@@ -187,7 +213,7 @@ textarea {
 	.backBtn {
 		font-size: 0.85rem;
 	}
-	.main-logo img {
+	.main__logo img {
 		width: 105px;
 	}
 }
@@ -195,7 +221,7 @@ textarea {
 	.backBtn {
 		font-size: 1rem;
 	}
-	.main-logo img {
+	.main__logo img {
 		width: 118px;
 	}
 }

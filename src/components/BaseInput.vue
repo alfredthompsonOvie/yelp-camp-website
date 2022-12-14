@@ -11,7 +11,7 @@
 			:aria-describedby="error ? `${uuid}-error` : null"
 			:aria-invalid="error ? true : null"
 			:id="uuid"
-			:class="[{ input__error: error }, className]"
+			:class="[className, { input__error: error }]"
 		/>
 		<p
 			v-if="error"
@@ -27,6 +27,8 @@
 <script>
 import UUID from "../features/UniqueID";
 export default {
+	name: "BaseInput",
+	inheritAttrs: false,
 	props: {
 		label: {
 			type: String,
@@ -72,11 +74,11 @@ export default {
 	padding-left: 3em;
 	border-radius: 5px;
 }
-.errorMessage {
+/* .errorMessage {
 	color: red;
 	z-index: 99;
 	font-size: .9rem;
-}
+} */
 label.label {
 	font-size: 1rem;
 	margin-bottom: .6em;
@@ -85,7 +87,7 @@ label.label {
 input::placeholder {
 	color: lightslategray;
 }
-input.search {
+.search {
 	flex: 2;
 	background-color: #fff;
 	padding-left: 2.5em;
@@ -96,20 +98,28 @@ input.search {
 	font-size: 1.1rem;
 	height: 100%;
 }
+/* input.search {
+	flex: 2;
+	background-color: #fff;
+	padding-left: 2.5em;
+	position: relative;
+	z-index: 1;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	margin-bottom: 0.2em;
+	font-size: 1.1rem;
+	height: 100%;
+} */
+/* input.input--addCamp {
+	border: 0;
+	background-color: #eee;
+	padding: 1.2em 1.5em;
+} */
 input.input--addCamp {
 	border: 0;
 	background-color: #eee;
 	padding: 1.2em 1.5em;
 }
-/* textarea {
-	width: 100%;
-	margin-top: 0.5em;
-	background-color: #eee;
-	border: none;
-	border-radius: 5px;
-	padding: 1em;
-	line-height: 1.5;
-} */
+
 
 input.input__error {
 	border: 2px solid red;
@@ -130,6 +140,9 @@ input.input__error {
 	/* input {
 		margin-top: 0;
 	} */
+	.form__control {
+	margin-top: 0em;
+}
 	.search {
     margin-top: 0;
 	}

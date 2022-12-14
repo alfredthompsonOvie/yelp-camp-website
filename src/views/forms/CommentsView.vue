@@ -1,58 +1,88 @@
 <template>
 	<div class="container">
-    <MainNav />
+		<MainNav />
 
-		<main class="main">
-			<form class="form">
-				<fieldset>
-					<legend class="form__title">Add New Comment</legend>
+		<form class="form" @submit.prevent="submit">
+			<fieldset class="form__contents">
+				<legend class="form__title">
+					Add New Comment
+				</legend>
 
-				</fieldset>
-
-				<div class="form-control">
-					<label for="description">Description</label>
-					<textarea
+				<BaseTextArea 
+						label="Description"
 						name="description"
-						id="description"
-						cols="30"
-						rows="10"
 						placeholder="This was probably the best camp i've visited this past year, definitely recommend visiting any time soon."
-					></textarea>
-				</div>
-				<div class="form-control">
-					<input type="submit" value="Post Comment" />
-				</div>
-			</form>
-		</main>
-		<footer class="footer">
-			<router-link :to="{ name: 'home' }">
-				<img src="@/assets/images/Logo.svg" alt="site logo" />
-			</router-link>
-		</footer>
+						v-model="description" 
+						:error="errors.description"
+						/>
+
+				<button type="submit" class="submit">Post Comment</button>
+			</fieldset>
+		</form>
 	</div>
 </template>
 
 <script>
 import MainNav from "@/components/navigation/MainNav.vue";
+import BaseTextArea from "@/components/BaseTextArea.vue";
+
+import { useField, useForm } from "vee-validate";
+import { object, string } from "yup";
+
+import { useRouter } from "vue-router";
 
 export default {
-  name: "CommentsView",
-  components: {
+	name: "SignUp",
+	components: {
 		MainNav,
+		BaseTextArea,
 	},
 	setup() {
-		return {};
+		const router = useRouter();
+
+		const schema = object({
+			description: string().required()
+		});
+
+		const { handleSubmit, errors } = useForm({
+			validationSchema: schema
+		});
+
+		const { value: description } = useField('description');
+
+		const submit = handleSubmit(values => {
+			console.log(values);
+			router.push({ name: "CampDetailsView"})
+		})
+		return {
+			submit,
+			description,
+			errors,
+		};
 	},
 };
 </script>
 
 <style scoped>
-.main {
-  grid-row: 2;
-  grid-column: 2;
-}
 .form {
-	max-width: 400px;
-  margin-inline: auto;
+	padding: 0 1.5em;
+	margin: 3em 0; 
+	width: 100%;
+}
+.form__contents {
+	margin-inline: auto;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+	.form, .testimonial {
+		padding-inline: 3em;
+	}
+}
+@media (min-width: 992px) {
+	.form {
+		grid-row: 2;
+		grid-column: 2/5;
+		align-self: center;
+	}
 }
 </style>
+

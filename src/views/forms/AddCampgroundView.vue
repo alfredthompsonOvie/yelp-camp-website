@@ -5,7 +5,7 @@
 		<MainNav />
 		<!-- 1.2 CONTENTS-->
 		<main class="main">
-			<form class="form ">
+			<form class="form" @submit.prevent="submit">
 				<fieldset class="form-contents form__contents">
 					<legend class="form__title">Add New Campground</legend>
 				
@@ -15,6 +15,8 @@
 						className="input--addCamp"
 						type="text"
 						name="campgroundName"
+						v-model="campgroundName"
+						:error="errors.campgroundName"
 					/>
 
 					<BaseInput
@@ -23,31 +25,27 @@
 						className="input--addCamp"
 						type="number"
 						name="price"
+						v-model="price"
+						:error="errors.price"
 					/>
 
 					<BaseInput
 						label="Image"
 						placeholder="www.thepinoytravelter.com/2018/01/mt-ulap-diy-dayhike.html"
 						className="input--addCamp"
+						type="text"
 						name="image"
+						v-model="image"
+						:error="errors.image"
 					/>
 
 					<BaseTextArea 
 						label="Description"
 						name="description"
 						placeholder="The Seven Sisters is the 39th tallest waterfall in Norway. The 410-meter tall waterfall consists of seven separate streams, and the tallest of the seven has a free fall that measures 250 metres. The waterfall is located along the Geirangerfjordan in Stranda Municipality in More og Romsdal county. Norway."
+						v-model="description"
+						:error="errors.description"
 					/>
-					<!-- <div class="form__control form__group">
-						<label for="description">Description</label>
-						<textarea
-							name="description"
-							id="description"
-							cols="30"
-							rows="10"
-							placeholder="The Seven Sisters is the 39th tallest waterfall in Norway. The 410-meter tall waterfall consists of seven separate streams, and the tallest of the seven has a free fall that measures 250 metres. The waterfall is located along the Geirangerfjordan in Stranda Municipality in More og Romsdal county. Norway."
-						></textarea>
-					</div> -->
-					
 
 					<!-- button -->
 					<button type="submit" class="submit">Add Campground</button>
@@ -64,9 +62,15 @@
 
 <script>
 import MainNav from "@/components/navigation/MainNav.vue";
-// import BaseInput from "../../components/BaseInput.vue";
+
 import BaseInput from "@/components/BaseInput.vue";
 import BaseTextArea from "@/components/BaseTextArea.vue";
+
+import { useField, useForm } from "vee-validate";
+import { object, string, number } from "yup";
+
+import { useRouter } from "vue-router"
+
 export default {
 	name: "AddCampgroundView",
 	components: {
@@ -75,7 +79,37 @@ export default {
 		BaseTextArea
 	},
 	setup() {
-		return {};
+		const router = useRouter();
+		// validationSchema
+		const schema = object({
+			campgroundName: string().required(),
+			price: number().required(),
+			image: string().required(),
+			description: string().required(),
+		})
+
+		const { handleSubmit, errors } = useForm({
+			validationSchema: schema
+		})
+
+		const { value: campgroundName } = useField('campgroundName')
+		const { value: price } = useField('price')
+		const { value: image } = useField('image')
+		const { value: description } = useField('description')
+
+		const submit = handleSubmit(values => {
+			console.log("submited", values);
+			router.push({ name: "campgrounds" })
+
+		})
+		return {
+			submit,
+			campgroundName,
+			price,
+			image,
+			description,
+			errors
+		};
 	},
 };
 </script>

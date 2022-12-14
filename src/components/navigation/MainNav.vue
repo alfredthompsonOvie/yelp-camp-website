@@ -15,7 +15,7 @@
 			<template v-if="loggedIn">
 				<li class="nav__item marginLeft">
 					<RouterLink to="#" class="userName nav__link marginLeft"
-						>Johndoe</RouterLink
+						>{{ user.currentUser}}</RouterLink
 					>
 				</li>
 				<li class="nav__item">
@@ -45,13 +45,11 @@
 			<template v-if="loggedIn">
 				<li class="nav__item marginLeft">
 					<RouterLink to="#" class="userName nav__link marginLeft"
-						>Johndoe</RouterLink
+						>{{ user.currentUser }}</RouterLink
 					>
 				</li>
-				<li class="nav__item">
-					<RouterLink :to="{ name: 'campgrounds' }" class="logout nav__link"
-						>Logout</RouterLink
-					>
+				<li class="nav__item logout  nav__link" @click.prevent="logOut">
+					Logout
 				</li>
 			</template>
 			<template v-else>
@@ -84,13 +82,20 @@
 
 <script>
 import { ref, onMounted } from "vue";
+import { useUserStore } from "@/stores/user";
+import { useRouter } from "vue-router"
 
 export default {
 	setup() {
 		const mobile = ref(null);
 		const mobileNav = ref(null);
 		const windowWidth = ref(null);
-		const loggedIn = ref(false);
+
+		const user = useUserStore();
+		const router = useRouter()
+
+
+		const loggedIn = user.isUserLoggedIn;
 
 		function checkScreen() {
 			windowWidth.value = window.innerWidth;
@@ -104,6 +109,11 @@ export default {
 			}
 		}
 
+		function logOut() {
+			user.logUserOut();
+			router.push({ name: 'campgrounds' })
+		}
+
 		onMounted(() => {
 			checkScreen();
 			window.addEventListener("resize", checkScreen);
@@ -112,7 +122,9 @@ export default {
 		return {
 			mobile,
 			mobileNav,
-			loggedIn
+			loggedIn,
+			logOut,
+			user
 		};
 	},
 };

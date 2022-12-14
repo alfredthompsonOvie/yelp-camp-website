@@ -51,16 +51,8 @@ ul span {
 .main-logo img {
 	width: 100px;
 }
-.marginRight {
-	margin-right: auto;
-}
-.backBtn {
-	font-size: 0.7rem;
-	align-self: end;
-	text-align: right;
-	display: inline-block;
-	color: #888;
-}
+
+
 .camp-illustration-testimonial{
 	padding: 3em 1.5em;
 	background-color: #eee;

@@ -62,6 +62,8 @@
 					</p>
 				</div>
 				<div class="btnContainer inner-padding">
+
+					<!-- todo how to pass params through routerlinks to the next page -->
 					<RouterLink
 						:to="{ name: 'CommentsView' }"
 						class="ctaBtn cta-leave-a-review"
@@ -106,11 +108,78 @@ export default {
 main {
 	padding: 0 1.5em;
 }
+
 .card,
 .reviews,
 .mapContainer {
 	max-width: 350px;
 	margin-inline: auto;
+}
+
+.card{
+	padding: 1.3em;
+	box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
+	border-radius: 5px;
+ margin-bottom: 2em;
+}
+.card img {
+ border-radius: 5px;
+ width: 100%;
+}
+.card * + * {
+ margin-top: .5em;
+}
+.card-heading{
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+}
+.card p{
+	font-size: .8rem;
+	line-height: 1.2;
+}
+.reviews {
+	box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
+ border-radius: 5px;
+	padding: 1.3em;
+ padding-top: 0;
+ margin-bottom: 3em;
+}
+.review-comment-title{
+ margin-bottom: 1em;
+	display: flex;
+ align-items: center;
+ justify-content: space-between;
+}
+.reviews > * + * {
+ border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.review-comment{
+ padding: 1.5em 0;
+}
+.btnContainer{
+ padding: 2em 0 0;
+}
+.cta-leave-a-review {
+ background-color: #000;
+ padding: 1em;
+ display: flex;
+ align-items: center;
+ gap: 1em;
+ color: #fff;
+ width: 13em;
+ border-radius: 5px;
+}
+.mapContainer{
+	padding: 1.3em;
+	box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
+ border-radius: 5px;
+ margin-bottom: 1em;
+	overflow: hidden;
+}
+.mapContainer img {
+ width: 100%;
+	height: 100%;
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -147,5 +216,9 @@ main {
 		max-width: 100%;
 		margin-inline: auto;
 	}
+.btnContainer {
+	display: flex;
+	justify-content: flex-end;
+}
 }
 </style>

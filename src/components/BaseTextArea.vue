@@ -6,13 +6,20 @@
 			cols="30"
 			rows="10"
 			:placeholder="placeholder"
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
+      :class="[{ input__error: error }]"
 		></textarea>
+    <p class="errorMessage">
+      {{ error }}
+    </p>
 	</div>
 </template>
 
 <script>
 export default {
   name: "BaseTextArea",
+  inheritAttrs: false,
   props: {
     label: {
       type: String,
@@ -38,4 +45,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

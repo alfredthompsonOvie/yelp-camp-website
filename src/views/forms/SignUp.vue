@@ -2,39 +2,42 @@
 	<div class="container">
 		<SubNav />
 
-		<section class="camp-contents ">
-			<form class="form">
-				<fieldset class="form__contents">
-					<legend class="form__title">
-						Start exploring camps from all around the world.
-					</legend>
+		<form class="form" @submit.prevent="submit">
+			<fieldset class="form__contents">
+				<legend class="form__title">
+					Start exploring camps from all around the world.
+				</legend>
 
-					<BaseInput
-						label="Username"
-						placeholder="johndoe_91"
-						className="input--addCamp"
-						type="text"
-						name="username"
-					/>
-					<BaseInput
-						label="Password"
-						placeholder="Choose Password"
-						className="input--addCamp"
-						type="password"
-						name="password"
-					/>
-				</fieldset>
+				<BaseInput
+					label="Username"
+					placeholder="johndoe_91"
+					className="input--addCamp"
+					type="text"
+					name="username"
+					v-model="username"
+					:error="errors.username"
+				/>
+				<BaseInput
+					label="Password"
+					placeholder="Choose Password"
+					className="input--addCamp"
+					type="password"
+					name="password"
+					v-model="password"
+					:error="errors.password"
+				/>
 
 				<button type="submit" class="submit">Create an account</button>
+			</fieldset>
 
-				<p class="account">
-					Already a user?
-					<RouterLink :to="{ name: 'SignIn' }">Sign in</RouterLink>
-				</p>
-			</form>
-		</section>
 
-		<section class="camp-illustration camp-illustration-testimonial">
+			<p class="account">
+				Already a user?
+				<RouterLink :to="{ name: 'SignIn' }">Sign in</RouterLink>
+			</p>
+		</form>
+
+		<section class="camp-illustration camp-illustration-testimonial testimonial">
 			<div class="testimonial-content">
 				<div class="testimonial-comment">
 					<p>
@@ -57,8 +60,14 @@
 
 <script>
 import SubNav from "@/components/navigation/SubNav.vue";
-
 import BaseInput from "@/components/BaseInput.vue";
+
+import { useField, useForm } from "vee-validate";
+import { object, string } from "yup";
+
+import { useRouter } from "vue-router";
+
+import { useUserStore } from "@/stores/user";
 
 export default {
 	name: "SignUp",
@@ -67,9 +76,59 @@ export default {
 		BaseInput,
 	},
 	setup() {
-		return {};
+		const router = useRouter();
+		const user = useUserStore();
+
+		const schema = object({
+			username: string().required(),
+			password: string().required(),
+		})
+
+		const { handleSubmit, errors } = useForm({
+			validationSchema: schema
+		})
+
+		const { value: username } = useField('username');
+		const { value: password } = useField('password');
+
+		const submit = handleSubmit(values => {
+			console.log(values);
+			user.logUserIn(values.username)
+			router.push({ name: "campgrounds" })
+		})
+
+		return {
+			username,
+			password,
+			errors,
+			submit
+		};
 	},
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.form {
+	padding: 0 1.5em;
+	margin: 3em 0; 
+}
+.submit {
+	margin-top: 1.5em;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+	.form, .testimonial {
+		padding-inline: 3em;
+	}
+}
+@media (min-width: 992px) {
+	.nav__bar {
+		grid-row: 1;
+		grid-column: 2;
+	}
+	.form {
+		grid-row: 2;
+		grid-column: 2;
+		align-self: center;
+	}
+}
+</style>
