@@ -1,5 +1,5 @@
 <template>
-	<div class="form-control">
+	<div class="form__control--textArea">
 		<label :for="label">{{ label }}</label>
 		<textarea
       v-bind="attrs"
@@ -38,4 +38,5 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

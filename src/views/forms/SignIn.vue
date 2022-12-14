@@ -8,6 +8,7 @@
 import { ref } from 'vue';
 
 export default {
+  name: "SignIn",
   setup () {
     const loginDetails = ref({
       username: "",

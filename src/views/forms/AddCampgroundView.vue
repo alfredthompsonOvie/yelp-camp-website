@@ -32,7 +32,12 @@
 						name="image"
 					/>
 
-					<div class="form-control form__group">
+					<BaseTextArea 
+						label="Description"
+						name="description"
+						placeholder="The Seven Sisters is the 39th tallest waterfall in Norway. The 410-meter tall waterfall consists of seven separate streams, and the tallest of the seven has a free fall that measures 250 metres. The waterfall is located along the Geirangerfjordan in Stranda Municipality in More og Romsdal county. Norway."
+					/>
+					<!-- <div class="form__control form__group">
 						<label for="description">Description</label>
 						<textarea
 							name="description"
@@ -41,7 +46,8 @@
 							rows="10"
 							placeholder="The Seven Sisters is the 39th tallest waterfall in Norway. The 410-meter tall waterfall consists of seven separate streams, and the tallest of the seven has a free fall that measures 250 metres. The waterfall is located along the Geirangerfjordan in Stranda Municipality in More og Romsdal county. Norway."
 						></textarea>
-					</div>
+					</div> -->
+					
 
 					<!-- button -->
 					<button type="submit" class="submit">Add Campground</button>
@@ -58,12 +64,15 @@
 
 <script>
 import MainNav from "@/components/navigation/MainNav.vue";
-import BaseInput from "../../components/BaseInput.vue";
+// import BaseInput from "../../components/BaseInput.vue";
+import BaseInput from "@/components/BaseInput.vue";
+import BaseTextArea from "@/components/BaseTextArea.vue";
 export default {
 	name: "AddCampgroundView",
 	components: {
 		MainNav,
 		BaseInput,
+		BaseTextArea
 	},
 	setup() {
 		return {};

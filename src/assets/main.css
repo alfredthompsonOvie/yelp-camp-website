@@ -50,14 +50,16 @@
 } 
 textarea {
 	width: 100%;
-	margin-top: 0.5em;
+	margin-top: .5em;
 	background-color: #eee;
 	border: none;
 	border-radius: 5px;
 	padding: 1em;
 	line-height: 1.5;
 }
-
+.form__control--textArea {
+	margin: 1em 0;
+}
 
 
 .cta-addCamp {
