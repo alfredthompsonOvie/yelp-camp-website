@@ -2,10 +2,7 @@
 	<div class="container">
 		<SubNav />
 
-		<form 
-		class="form"
-		@submit.prevent="submit"
-		>
+		<form class="form" @submit.prevent="submit">
 			<fieldset class="form__contents">
 				<legend class="form__title">
 					Start exploring camps from all around the world.
@@ -33,14 +30,15 @@
 				<button type="submit" class="submit">Login</button>
 			</fieldset>
 
-
 			<p class="account">
 				Not a user yet?
 				<RouterLink :to="{ name: 'SignUp' }">Create an account</RouterLink>
 			</p>
 		</form>
 
-		<section class="camp-illustration camp-illustration-testimonial testimonial">
+		<section
+			class="camp-illustration camp-illustration-testimonial testimonial"
+		>
 			<div class="testimonial-content">
 				<div class="testimonial-comment">
 					<p>
@@ -50,7 +48,10 @@
 					</p>
 				</div>
 				<div class="testimonial-profile">
-					<img src="@/assets/images/UserTestimonial.svg" alt="an image of a woman" />
+					<img
+						src="@/assets/images/UserTestimonial.svg"
+						alt="an image of a woman"
+					/>
 					<div class="profile-name">
 						<h4>May Andrews</h4>
 						<p>Professional Hiker</p>
@@ -70,7 +71,9 @@ import { object, string } from "yup";
 
 import { useRouter } from "vue-router";
 
-import { useUserStore } from "@/stores/user"
+import { useUserStore } from "@/stores/user";
+
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default {
 	name: "SignUp",
@@ -85,29 +88,42 @@ export default {
 		// validate on form level first create a validation schema
 		const schema = object({
 			username: string().required(),
-			password: string().required()
-		})
+			password: string().required(),
+		});
 
 		const { handleSubmit, errors } = useForm({
-			validationSchema: schema
-		})
+			validationSchema: schema,
+		});
 
-		const { value: username } = useField('username')
-		const { value: password } = useField('password')
+		const { value: username } = useField("username");
+		const { value: password } = useField("password");
 
-		const submit = handleSubmit(values => {
+		const submit = handleSubmit((values) => {
 			console.log("login  " + values);
 
-			user.logUserIn(values.username)
+			user.logUserIn(values.username);
+
+			const auth = getAuth();
+			signInWithEmailAndPassword(auth, values.username, values.password)
+				.then((userCredential) => {
+					// Signed in
+					const user = userCredential.user;
+					// ...
+					console.log(user);
+				})
+				.catch((error) => {
+					const errorCode = error.code;
+					const errorMessage = error.message;
+				});
 
 			console.log(user.isUserLoggedIn);
-			router.push({ name: "campgrounds" })
-		})
+			router.push({ name: "campgrounds" });
+		});
 		return {
 			submit,
 			errors,
 			username,
-			password
+			password,
 		};
 	},
 };
@@ -116,13 +132,14 @@ export default {
 <style scoped>
 .form {
 	padding: 0 1.5em;
-	margin: 3em 0; 
+	margin: 3em 0;
 }
 .submit {
 	margin-top: 1.5em;
 }
 @media (min-width: 768px) and (max-width: 991px) {
-	.form, .testimonial {
+	.form,
+	.testimonial {
 		padding-inline: 3em;
 	}
 }

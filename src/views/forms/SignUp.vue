@@ -69,6 +69,9 @@ import { useRouter } from "vue-router";
 
 import { useUserStore } from "@/stores/user";
 
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
+
 export default {
 	name: "SignUp",
 	components: {
@@ -94,6 +97,18 @@ export default {
 		const submit = handleSubmit(values => {
 			console.log(values);
 			user.logUserIn(values.username)
+			const auth = getAuth();
+			createUserWithEmailAndPassword(auth, values.username, values.password)
+				.then((userCredential) => {
+					// Signed in
+					const user = userCredential.user;
+					// ...
+				})
+				.catch((error) => {
+					const errorCode = error.code;
+					const errorMessage = error.message;
+					// ..
+				});
 			router.push({ name: "campgrounds" })
 		})
 

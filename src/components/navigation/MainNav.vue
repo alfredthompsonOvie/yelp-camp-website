@@ -14,9 +14,9 @@
 			</li>
 			<template v-if="loggedIn">
 				<li class="nav__item marginLeft">
-					<RouterLink to="#" class="userName nav__link marginLeft"
-						>{{ user.currentUser}}</RouterLink
-					>
+					<RouterLink to="#" class="userName nav__link marginLeft">{{
+						user.currentUser
+					}}</RouterLink>
 				</li>
 				<li class="nav__item">
 					<RouterLink :to="{ name: 'campgrounds' }" class="logout nav__link"
@@ -26,7 +26,9 @@
 			</template>
 			<template v-else>
 				<li class="nav__item marginLeft">
-					<RouterLink :to="{ name: 'SignIn'}" class="userName nav__link marginLeft"
+					<RouterLink
+						:to="{ name: 'SignIn' }"
+						class="userName nav__link marginLeft"
 						>Login</RouterLink
 					>
 				</li>
@@ -44,17 +46,19 @@
 			</li>
 			<template v-if="loggedIn">
 				<li class="nav__item marginLeft">
-					<RouterLink to="#" class="userName nav__link marginLeft"
-						>{{ user.currentUser }}</RouterLink
-					>
+					<RouterLink to="#" class="userName nav__link marginLeft">{{
+						user.currentUser
+					}}</RouterLink>
 				</li>
-				<li class="nav__item logout  nav__link" @click.prevent="logOut">
+				<li class="nav__item logout nav__link" @click.prevent="logOut">
 					Logout
 				</li>
 			</template>
 			<template v-else>
 				<li class="nav__item marginLeft">
-					<RouterLink :to="{ name: 'SignIn'}" class="userName nav__link marginLeft"
+					<RouterLink
+						:to="{ name: 'SignIn' }"
+						class="userName nav__link marginLeft"
 						>Login</RouterLink
 					>
 				</li>
@@ -83,7 +87,9 @@
 <script>
 import { ref, onMounted } from "vue";
 import { useUserStore } from "@/stores/user";
-import { useRouter } from "vue-router"
+import { useRouter } from "vue-router";
+
+import { getAuth, signOut } from "firebase/auth";
 
 export default {
 	setup() {
@@ -92,8 +98,8 @@ export default {
 		const windowWidth = ref(null);
 
 		const user = useUserStore();
-		const router = useRouter()
-
+		const router = useRouter();
+		const auth = getAuth();
 
 		const loggedIn = user.isUserLoggedIn;
 
@@ -111,7 +117,16 @@ export default {
 
 		function logOut() {
 			user.logUserOut();
-			router.push({ name: 'campgrounds' })
+
+			signOut(auth)
+				.then(() => {
+					// Sign-out successful.
+				})
+				.catch((error) => {
+					// An error happened.
+					console.log(error);
+				});
+			router.push({ name: "campgrounds" });
 		}
 
 		onMounted(() => {
@@ -124,7 +139,7 @@ export default {
 			mobileNav,
 			loggedIn,
 			logOut,
-			user
+			user,
 		};
 	},
 };
