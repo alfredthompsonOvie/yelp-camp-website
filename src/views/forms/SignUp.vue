@@ -69,7 +69,8 @@ import { useRouter } from "vue-router";
 
 import { useUserStore } from "@/stores/user";
 
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import useSignup from "@/composables/useSignup";
+
 
 
 export default {
@@ -81,6 +82,7 @@ export default {
 	setup() {
 		const router = useRouter();
 		const user = useUserStore();
+		const { error, isPending, signup } = useSignup();
 
 		const schema = object({
 			username: string().required(),
@@ -94,23 +96,15 @@ export default {
 		const { value: username } = useField('username');
 		const { value: password } = useField('password');
 
-		const submit = handleSubmit(values => {
+		async function submissionHandler(values) {
+			// await signup(values.username, values.password)
 			console.log(values);
 			user.logUserIn(values.username)
-			const auth = getAuth();
-			createUserWithEmailAndPassword(auth, values.username, values.password)
-				.then((userCredential) => {
-					// Signed in
-					const user = userCredential.user;
-					// ...
-				})
-				.catch((error) => {
-					const errorCode = error.code;
-					const errorMessage = error.message;
-					// ..
-				});
 			router.push({ name: "campgrounds" })
-		})
+
+		}
+
+		const submit = handleSubmit(submissionHandler)
 
 		return {
 			username,

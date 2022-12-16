@@ -103,7 +103,7 @@ export default {
 
 			user.logUserIn(values.username);
 
-			const auth = getAuth();
+			// const auth = getAuth();
 			signInWithEmailAndPassword(auth, values.username, values.password)
 				.then((userCredential) => {
 					// Signed in
