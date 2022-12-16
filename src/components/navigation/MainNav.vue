@@ -89,7 +89,8 @@ import { ref, onMounted } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useRouter } from "vue-router";
 
-// import { getAuth, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
+import { auth } from "@/features/firebase";
 
 export default {
 	setup() {
@@ -99,7 +100,6 @@ export default {
 
 		const user = useUserStore();
 		const router = useRouter();
-		// const auth = getAuth();
 
 		const loggedIn = user.isUserLoggedIn;
 
@@ -118,15 +118,15 @@ export default {
 		function logOut() {
 			user.logUserOut();
 
-			// signOut(auth)
-			// 	.then(() => {
-			// 		// Sign-out successful.
-			// 	})
-			// 	.catch((error) => {
-			// 		// An error happened.
-			// 		console.log(error);
-			// 	});
-			router.push({ name: "campgrounds" });
+			signOut(auth)
+				.then(() => {
+					// Sign-out successful.
+					router.push({ name: "campgrounds" });
+				})
+				.catch((error) => {
+					// An error happened.
+					console.log(error);
+				});
 		}
 
 		onMounted(() => {

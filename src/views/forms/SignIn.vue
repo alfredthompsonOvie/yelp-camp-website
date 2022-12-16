@@ -27,7 +27,11 @@
 					:error="errors.password"
 				/>
 
-				<button type="submit" class="submit">Login</button>
+				<button 
+				type="submit" 
+				class="submit" 
+				:class="{ isDisabled: isPending }"
+				:disabled="isPending">Login</button>
 			</fieldset>
 
 			<p class="account">
@@ -73,7 +77,7 @@ import { useRouter } from "vue-router";
 
 import { useUserStore } from "@/stores/user";
 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import useLogin from "@/composables/useLogin";
 
 export default {
 	name: "SignUp",
@@ -84,6 +88,7 @@ export default {
 	setup() {
 		const router = useRouter();
 		const user = useUserStore();
+		const { error, isPending, login } = useLogin();
 
 		// validate on form level first create a validation schema
 		const schema = object({
@@ -98,32 +103,26 @@ export default {
 		const { value: username } = useField("username");
 		const { value: password } = useField("password");
 
-		const submit = handleSubmit((values) => {
-			console.log("login  " + values);
 
-			user.logUserIn(values.username);
+		async function submissionHandler(values) {
+			await login(values.username, values.password)
 
-			// const auth = getAuth();
-			signInWithEmailAndPassword(auth, values.username, values.password)
-				.then((userCredential) => {
-					// Signed in
-					const user = userCredential.user;
-					// ...
-					console.log(user);
-				})
-				.catch((error) => {
-					const errorCode = error.code;
-					const errorMessage = error.message;
-				});
+			if (!error.value) {
+				console.log(values);
+				user.logUserIn(values.username)
+				router.push({ name: "campgrounds" })
+			}
 
-			console.log(user.isUserLoggedIn);
-			router.push({ name: "campgrounds" });
-		});
+		}
+
+		const submit = handleSubmit(submissionHandler);
+
 		return {
 			submit,
 			errors,
 			username,
 			password,
+			isPending
 		};
 	},
 };

@@ -27,7 +27,14 @@
 					:error="errors.password"
 				/>
 
-				<button type="submit" class="submit">Create an account</button>
+				<button 
+				type="submit" 
+				class="submit"
+				:class="{ isDisabled: isPending }" 
+				:disabled="isPending"
+				>
+				Create an account
+			</button>
 			</fieldset>
 
 
@@ -97,10 +104,12 @@ export default {
 		const { value: password } = useField('password');
 
 		async function submissionHandler(values) {
-			// await signup(values.username, values.password)
-			console.log(values);
-			user.logUserIn(values.username)
-			router.push({ name: "campgrounds" })
+			await signup(values.username, values.password)
+			if (!error.value) {
+				console.log(values);
+				user.logUserIn(values.username)
+				router.push({ name: "campgrounds" })
+			}
 
 		}
 
@@ -110,7 +119,8 @@ export default {
 			username,
 			password,
 			errors,
-			submit
+			submit,
+			isPending
 		};
 	},
 };
