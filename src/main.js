@@ -18,10 +18,27 @@ import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 /* add icons to the library */
 library.add(faBars, faXmark)
 
-const app = createApp(App)
+// firebase auth
+import { auth } from "@/features/firebase";
+import { onAuthStateChanged } from 'firebase/auth'
 
-app.use(createPinia())
-app.use(router)
-app.component('font-awesome-icon', FontAwesomeIcon)
+// const app = createApp(App)
 
-app.mount('#app')
+// app.use(createPinia())
+// app.use(router)
+// app.component('font-awesome-icon', FontAwesomeIcon)
+
+// app.mount('#app')
+
+let app;
+
+onAuthStateChanged(auth, () => {
+  if (!app) {
+    app = createApp(App)
+    app.use(createPinia())
+    app.use(router)
+    app.component('font-awesome-icon', FontAwesomeIcon)
+  
+    app.mount('#app')
+  }
+})
