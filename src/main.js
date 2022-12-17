@@ -19,7 +19,7 @@ import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 library.add(faBars, faXmark)
 
 // firebase auth
-import { auth } from "@/features/firebase";
+import { auth } from "@/firebase/config";
 import { onAuthStateChanged } from 'firebase/auth'
 
 // const app = createApp(App)
