@@ -13,7 +13,7 @@ const login = async (email, password) => {
 
   try {
     const response = await signInWithEmailAndPassword(auth, email, password);
-  
+    console.log(response);
     if (!response) {
       throw new Error("Could not complete login");
     }

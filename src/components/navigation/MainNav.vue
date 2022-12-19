@@ -12,10 +12,11 @@
 					>Home</RouterLink
 				>
 			</li>
-			<template v-if="loggedIn">
+
+			<template v-if="user">
 				<li class="nav__item marginLeft">
 					<RouterLink to="#" class="userName nav__link marginLeft">{{
-						user.currentUser
+						user.email
 					}}</RouterLink>
 				</li>
 				<li class="nav__item">
@@ -39,15 +40,17 @@
 				</li>
 			</template>
 		</ul>
+
+
 		<!-- desktop -->
 		<ul class="nav__list" v-if="!mobile">
 			<li class="nav__item marginRight">
 				<RouterLink to="/" class="nav__link">Home</RouterLink>
 			</li>
-			<template v-if="loggedIn">
+			<template v-if="user">
 				<li class="nav__item marginLeft">
 					<RouterLink to="#" class="userName nav__link marginLeft">{{
-						user.currentUser
+						user.email
 					}}</RouterLink>
 				</li>
 				<li class="nav__item logout nav__link" @click.prevent="logOut">
@@ -86,11 +89,14 @@
 
 <script>
 import { ref, onMounted } from "vue";
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/userStore";
 import { useRouter } from "vue-router";
 
 import { signOut } from "firebase/auth";
 import { auth } from "@/features/firebase";
+
+import getUser from '@/composables/getUser'
+
 
 export default {
 	setup() {
@@ -98,10 +104,13 @@ export default {
 		const mobileNav = ref(null);
 		const windowWidth = ref(null);
 
-		const user = useUserStore();
+		const userStore = useUserStore();
 		const router = useRouter();
 
-		const loggedIn = user.isUserLoggedIn;
+  const { user } = getUser();
+
+
+		const loggedIn = userStore.isUserLoggedIn;
 
 		function checkScreen() {
 			windowWidth.value = window.innerWidth;
@@ -116,7 +125,7 @@ export default {
 		}
 
 		function logOut() {
-			user.logUserOut();
+			userStore.logUserOut();
 
 			signOut(auth)
 				.then(() => {
@@ -139,6 +148,7 @@ export default {
 			mobileNav,
 			loggedIn,
 			logOut,
+			userStore,
 			user,
 		};
 	},

@@ -2,9 +2,12 @@ import { ref, computed } from 'vue'
 
 import { defineStore } from 'pinia'
 
-export const useUserStore = defineStore('user', () => {
+// import getUser from '../composables/getUser'
+
+export const useUserStore = defineStore('userStore', () => {
   // state
   const isLoggedIn = ref(false)
+  // const { user } = getUser();
   const currentUser = ref(null)
   
   // getter
@@ -21,6 +24,7 @@ export const useUserStore = defineStore('user', () => {
     isLoggedIn.value = false
     currentUser.value = null
   }
+
 
   return {
     isUserLoggedIn,

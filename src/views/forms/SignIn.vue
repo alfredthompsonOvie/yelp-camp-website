@@ -8,14 +8,18 @@
 					Start exploring camps from all around the world.
 				</legend>
 
+				<div v-if="error" class="firebase__error">
+					{{ error }}
+				</div>
+
 				<BaseInput
-					label="Username"
-					placeholder="johndoe_91"
+					label="Email"
+					placeholder="johndoe_91@gmail.com"
 					className="input--addCamp"
-					type="text"
-					name="username"
-					v-model="username"
-					:error="errors.username"
+					type="email"
+					name="email"
+					v-model="email"
+					:error="errors.email"
 				/>
 				<BaseInput
 					label="Password"
@@ -75,24 +79,24 @@ import { object, string } from "yup";
 
 import { useRouter } from "vue-router";
 
-import { useUserStore } from "@/stores/user";
+// import { useUserStore } from "@/stores/userStore";
 
 import useLogin from "@/composables/useLogin";
 
 export default {
-	name: "SignUp",
+	name: "SignIn",
 	components: {
 		SubNav,
 		BaseInput,
 	},
 	setup() {
 		const router = useRouter();
-		const user = useUserStore();
+		// const user = useUserStore();
 		const { error, isPending, login } = useLogin();
 
 		// validate on form level first create a validation schema
 		const schema = object({
-			username: string().required(),
+			email: string().required().email(),
 			password: string().required(),
 		});
 
@@ -100,16 +104,16 @@ export default {
 			validationSchema: schema,
 		});
 
-		const { value: username } = useField("username");
+		const { value: email } = useField("email");
 		const { value: password } = useField("password");
 
 
 		async function submissionHandler(values) {
-			await login(values.username, values.password)
+			await login(values.email, values.password)
 
 			if (!error.value) {
 				console.log(values);
-				user.logUserIn(values.username)
+				// user.logUserIn(values.email)
 				router.push({ name: "campgrounds" })
 			}
 
@@ -120,7 +124,9 @@ export default {
 		return {
 			submit,
 			errors,
-			username,
+			error,
+			// username,
+			email,
 			password,
 			isPending
 		};
