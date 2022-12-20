@@ -97,8 +97,8 @@ import useSignup from "@/composables/useSignup";
 
 // import getUser from "@/composables/getUser";
 
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "@/firebase/config";
+// import { collection, addDoc } from "firebase/firestore";
+// import { db } from "@/firebase/config";
 
 export default {
 	name: "SignUp",
@@ -126,8 +126,9 @@ export default {
 		const { value: password } = useField("password");
 
 		async function submissionHandler(values) {
-			await signup(values.email, values.password);
+			await signup(values.email, values.password, values.username);
 
+			// not needed
 			// await addDoc(collection(db, "users"), {
 			// 	username: values.username,
 			// 	email: values.email,
@@ -135,21 +136,23 @@ export default {
 			// 	// id: user.uid
 			// });
 
+			//not needed as well
 			// =====================
-			try {
-				const docRef = await addDoc(collection(db, "users"), {
-					username: values.username,
-					email: values.email,
-					password: values.password,
-				});
-				console.log("Document written with ID: ", docRef.id);
-			} catch (e) {
-				console.error("Error adding document: ", e);
-			}
+			// try {
+			// 	const docRef = await addDoc(collection(db, "users"), {
+			// 		username: values.username,
+			// 		email: values.email,
+			// 		password: values.password,
+			// 	});
+			// 	console.log("Document written with ID: ", docRef.id);
+			// } catch (e) {
+			// 	console.error("Error adding document: ", e);
+			// }
 			// =====================
+			// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 			if (!error.value) {
-				console.log(values);
+				// console.log(values);
 				// user.logUserIn(values.username);
 				router.push({ name: "campgrounds" });
 			}

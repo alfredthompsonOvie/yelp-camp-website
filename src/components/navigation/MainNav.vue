@@ -16,7 +16,7 @@
 			<template v-if="user">
 				<li class="nav__item marginLeft">
 					<RouterLink to="#" class="userName nav__link marginLeft">{{
-						user.email
+						userName
 					}}</RouterLink>
 				</li>
 				<li class="nav__item">
@@ -50,7 +50,7 @@
 			<template v-if="user">
 				<li class="nav__item marginLeft">
 					<RouterLink to="#" class="userName nav__link marginLeft">{{
-						user.email
+						userName
 					}}</RouterLink>
 				</li>
 				<li class="nav__item logout nav__link" @click.prevent="logOut">
@@ -108,8 +108,8 @@ export default {
 		const router = useRouter();
 
   const { user } = getUser();
-
-
+		const userName = ref(user.value.displayName)
+		// console.log(user.value.displayName);
 		const loggedIn = userStore.isUserLoggedIn;
 
 		function checkScreen() {
@@ -125,8 +125,6 @@ export default {
 		}
 
 		function logOut() {
-			userStore.logUserOut();
-
 			signOut(auth)
 				.then(() => {
 					// Sign-out successful.
@@ -149,7 +147,8 @@ export default {
 			loggedIn,
 			logOut,
 			userStore,
-			user,
+			userName,
+			user
 		};
 	},
 };

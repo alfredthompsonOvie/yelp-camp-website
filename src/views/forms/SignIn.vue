@@ -93,10 +93,12 @@ export default {
 		const router = useRouter();
 		// const user = useUserStore();
 		const { error, isPending, login } = useLogin();
+		// get displayName from ^ and store it in the store, OR JUST DO IT DIRECTLY FROM THE STORE USING THE GETUSER COMPOSABLE
 
 		// validate on form level first create a validation schema
 		const schema = object({
 			email: string().required().email(),
+			// check yup for a .password() 
 			password: string().required(),
 		});
 
@@ -125,7 +127,6 @@ export default {
 			submit,
 			errors,
 			error,
-			// username,
 			email,
 			password,
 			isPending
