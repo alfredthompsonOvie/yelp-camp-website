@@ -32,6 +32,7 @@ a {
 button {
   border: 0;
   cursor: pointer;
+	background-color: transparent;
 }
 fieldset {
   border: 0;
@@ -47,7 +48,9 @@ ul span {
   display: inline-block;
 }
 
-
+.btn {
+	color: #999;
+}
 .main-logo img {
 	width: 100px;
 }
