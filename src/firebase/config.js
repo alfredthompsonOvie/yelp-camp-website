@@ -17,6 +17,9 @@ initializeApp(firebaseConfig);
 
 // init services
 const auth = getAuth();
-const db = getFirestore()
+const db = getFirestore();
+
+// this is for firebase version 8 
+// const timestamp = firebase.firestore.FieldValue.serverTimestamp
 
 export { auth, db }
