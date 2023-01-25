@@ -39,18 +39,17 @@
 						v-model="image"
 						/> -->
 					<div class="form__control">
-						<label for="image">image: </label>
+						<label for="image" class="label">Image </label>
 						<input
 							className="input--addCamp"
 							type="file"
 							id="image"
 							name="image"
 							@change="handleChange($event)"
+							:class="{ input__error: errors.image }"
+							accept="image/png, image/jpeg, image/svg, image/webp"
 						/>
-						<!-- accept="image/png, image/jpeg" -->
-
-						<p>{{ fileError }}</p>
-						<p>{{ errors.image }}</p>
+						<p class="errorMessage">{{ errors.image }}</p>
 					</div>
 
 					<BaseTextArea
@@ -62,7 +61,12 @@
 					/>
 
 					<!-- button -->
-					<button type="submit" class="submit">Add Campground</button>
+					<button 
+					type="submit" 
+					class="submit"
+					:disabled="isPending"
+					:class="{ pending: isPending }"
+					>Add Campground</button>
 				</fieldset>
 			</form>
 		</main>
@@ -86,6 +90,11 @@ import { object, string, number, mixed } from "yup";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 
+// import { storage } from "@/firebase/config";
+// import { ref } from "firebase/storage"
+import useStorage from "@/composables/useStorage.js"
+import useFirestore from "@/composables/useFirestore.js"
+
 export default {
 	name: "AddCampgroundView",
 	components: {
@@ -95,39 +104,43 @@ export default {
 	},
 	setup() {
 		const router = useRouter();
-		const fileError = ref(null);
-		const AllowedFileTypes = ref(
-			[
-				"image/png",
-				"image/jpg",
-				"image/jpeg",
-				"image/svg",
-				"image/webp",
-			]);
+		const isPending = ref(null);
 
-		// function isValidFileType(fileName, fileType) {
-		// 	return (
-		// 		fileName &&
-		// 		validFileExtensions[fileType].indexOf(fileName.split(".").pop()) > -1
-		// 	);
-		// }
+		const AllowedFileTypes = ref([
+			"image/png",
+			"image/jpg",
+			"image/jpeg",
+			"image/svg",
+			"image/webp",
+		]);
+
+		const { url, error, filePath, uploadImage } = useStorage();
+		const { sendData } = useFirestore();
+
 		function isValidFileType(fileType) {
 			console.log(fileType);
-			return  AllowedFileTypes.value.includes(fileType)
+			return AllowedFileTypes.value.includes(fileType);
 		}
 
 		// validationSchema
-		const schema = object().shape({
+		const schema = object({
 			campgroundName: string().required("This field is required"),
 			price: number().required("This field is required"),
 
 			image: mixed()
-			.required("This field is required")
-				.test(
-					"isValidType",
-					"Please provide a valid image type (.png, .jpg, .jpeg, .svg, .webp)",
-					value => isValidFileType(value?.type),
-				),
+				.required("This field is required")
+				.test({
+					name: "isValidType",
+					exclusive: true,
+					message:
+						"Please provide a valid image type (.png, .jpg, .jpeg, .svg, .webp)",
+					test: (image) => isValidFileType(image?.type),
+				}),
+			// .test(
+			// 	"isValidType",
+			// 	"Please provide a valid image type (.png, .jpg, .jpeg, .svg, .webp)",
+			// 	image => isValidFileType(image?.type),
+			// ),
 			description: string().required("This field is required"),
 		});
 
@@ -140,13 +153,22 @@ export default {
 		const { handleChange, value: image } = useField("image");
 		const { value: description } = useField("description");
 
-		const submit = handleSubmit((values) => {
+		const submit = handleSubmit(async (values) => {
 			console.log("submited", values);
-			// router.push({ name: "campgrounds" })
-		});
+			console.log("submited image", values.image);
+			isPending.value = true;
+			await uploadImage(values.image)
+			console.log(url.value)
 
-		handleChange(($event) => {
-			console.log($event);
+			const sendingData = await sendData({
+				campgroundName: values.campgroundName,
+				price: values.price,
+				url: url.value,
+				description: values.description,
+			})
+			console.log(sendingData);
+			isPending.value = false
+			router.push({ name: "campgrounds" })
 		});
 
 		return {
@@ -157,8 +179,7 @@ export default {
 			handleChange,
 			description,
 			errors,
-			// value,
-			fileError,
+			isPending
 		};
 	},
 };
@@ -168,15 +189,55 @@ export default {
 main {
 	padding: 0 1.5em;
 }
-/* .form {
-	padding: 2em 0;
-} */
 .form {
 	width: 100%;
 }
 .form__contents {
 	max-width: 450px;
 	margin-inline: auto;
+}
+
+.form__control {
+	background-color: transparent;
+	width: 100%;
+	margin-top: 0.5em;
+	border: none;
+}
+.form__control input {
+	width: 100%;
+	padding: 1em;
+	padding-left: 3em;
+	border-radius: 5px;
+}
+label.label {
+	font-size: 1rem;
+	margin-bottom: 0.6em;
+	display: inline-block;
+}
+input.input--addCamp {
+	border: 0;
+	background-color: #eee;
+	padding: 1.2em 1.5em;
+}
+input[type="file"] {
+	border: 0;
+}
+
+input.input__error {
+	border: 2px solid red;
+}
+.form__control + .form__control {
+	margin-top: 1.2em;
+}
+
+.pending {
+	cursor: not-allowed;
+
+}
+@media (min-width: 580px) {
+	.form__control {
+		margin-top: 0em;
+	}
 }
 @media (min-width: 768px) and (max-width: 991px) {
 	main {
