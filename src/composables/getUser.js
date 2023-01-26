@@ -9,6 +9,7 @@ onAuthStateChanged(auth, (_user) => {
   // console.log(_user);
   user.value = _user;
   // console.log(user.value);
+  // console.log(user.value.displayName);
   // console.log("onAuthStateChanged: ",  user.value);
 })
 

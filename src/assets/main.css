@@ -43,14 +43,12 @@
 	padding: 1.2em 2em;
 	border-radius: 5px;
 	font-size: 1rem;
-	margin-top: 0.5em;
+	margin-top: 1.5em;
 	border: none;
 	background-color: black;
 	color: #eee;
 	cursor: pointer;
 	transition: all 0.3s ease-out;
-
-	/* margin-top: 1.2em; */
 }
 .submit:hover {
 	background-color: transparent;
@@ -66,7 +64,7 @@ textarea {
 	padding: 1em;
 	line-height: 1.5;
 }
-.form__control--textArea {
+.form__group--textArea {
 	margin: 1em 0;
 }
 

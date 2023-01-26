@@ -1,5 +1,5 @@
 <template>
-	<div class="form__control">
+	<div class="form__group">
 		
 		<label :for="uuid" class="label"> {{ label }} </label>
 
@@ -62,23 +62,21 @@ export default {
 </script>
 
 <style scoped>
-.form__control {
+.form__group {
 	background-color: transparent;
 	width: 100%;
-	margin-top: 0.5em;
+	
 	border: none;
 }
-.form__control input {
+/* .form__group + .form__group {
+	margin-top: 0.5em;
+} */
+.form__group input {
 	width: 100%;
 	padding: 1em;
 	padding-left: 3em;
 	border-radius: 5px;
 }
-/* .errorMessage {
-	color: red;
-	z-index: 99;
-	font-size: .9rem;
-} */
 label.label {
 	font-size: 1rem;
 	margin-bottom: .6em;
@@ -98,33 +96,16 @@ input::placeholder {
 	font-size: 1.1rem;
 	height: 100%;
 }
-/* input.search {
-	flex: 2;
-	background-color: #fff;
-	padding-left: 2.5em;
-	position: relative;
-	z-index: 1;
-	border: 1px solid rgba(0, 0, 0, 0.2);
-	margin-bottom: 0.2em;
-	font-size: 1.1rem;
-	height: 100%;
-} */
-/* input.input--addCamp {
-	border: 0;
-	background-color: #eee;
-	padding: 1.2em 1.5em;
-} */
 input.input--addCamp {
 	border: 0;
 	background-color: #eee;
 	padding: 1.2em 1.5em;
 }
 
-
 input.input__error {
 	border: 2px solid red;
 }
-.form__control + .form__control {
+.form__group + .form__group {
 	margin-top: 1.2em;
 }
 /* ======================================== */
@@ -133,14 +114,7 @@ input.input__error {
 /* ======================================== */
 /* ======================================== */
 @media (min-width: 580px) {
-	/* input + input {
-		margin-left: 1em;
-	} */
-
-	/* input {
-		margin-top: 0;
-	} */
-	.form__control {
+	.form__group {
 	margin-top: 0em;
 }
 	.search {

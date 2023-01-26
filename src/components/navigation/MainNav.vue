@@ -16,7 +16,7 @@
 					<button @click.prevent="logUserOut">Logout</button>
 				</li>
 			</template>
-			<template v-else>
+			<template v-if="!user">
 				<li class="mobileNav__item">
 					<RouterLink :to="{ name: 'SignIn' }" class="mobileNav__link"
 						>Login</RouterLink
@@ -46,7 +46,7 @@
 					</button>
 				</li>
 			</template>
-			<template v-else>
+			<template v-if="!user">
 				<li class="nav__item marginLeft">
 					<RouterLink
 						:to="{ name: 'SignIn' }"

@@ -1,5 +1,5 @@
 <template>
-	<div class="form__control--textArea">
+	<div class="form__group--textArea">
 		<label :for="label">{{ label }}</label>
 		<textarea
 			:id="label"

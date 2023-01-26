@@ -57,12 +57,15 @@
 							:alt="`an image of ${campground.title}`"
 						/>
 		
-						<h4 class="campCard-title campground__title">{{ campground.title }}</h4>
+						<h4 class="campCard-title campground__title">
+							{{ campground.title }}
+							<!-- {{ campground.id }} -->
+						</h4>
 						<p class="campCard-details campground__details">
-							{{ campground.description }}
+							{{ truncateText(campground.description) }}
 						</p>
 						<RouterLink
-							:to="{ name: 'CampDetailsView', params: { id: `${ joinTitle(campground.campgroundName)}` } }"
+							:to="{ name: 'CampDetailsView', params: { id: campground.id } }"
 							class="campground__btn"
 							data-camp="mount ulap"
 							>View Campground</RouterLink
@@ -73,7 +76,7 @@
 
 				</template>
 
-				<div class="campground">
+				<!-- <div class="campground">
 					<img
 						class="campCard-img campground__img"
 						src="@/assets/images/CampImages/HighQualityImages/Mount-Ulap.png"
@@ -185,7 +188,7 @@
 						data-camp="Buloy Springs"
 						>View Campground</a
 					>
-				</div>
+				</div> -->
 			</div>
 		</main>
 		<footer class="footer">
@@ -218,13 +221,13 @@ export default {
 		const { errorCollection, collections, getData } = getCollections()
 
 		
-		const sf = async () => {
+		const fetchDataFromDb = async () => {
 			await getData("users");
 			// console.log(collections.value);
 			campgrounds.value = collections.value
-			// console.log(campgrounds.value);
+			console.log(campgrounds.value);
 		}
-		sf();
+		fetchDataFromDb();
 		// Define a validation schema
 		const schema = object({
 			search: string().required("This field is required.")
@@ -244,16 +247,11 @@ export default {
 			console.log("submit", values);
 		})
 
-
-		const cg = [
-			{
-				brief: "",
-			description: "The Calaguas Islands are located in the Municipality of Vinzons, in the Province of Camarines Norte. It is known for its pristine beaches—the most popular among these is the Mahabang Buhangin beach, which is made up of a long stretch of powdery white sand.",
-
-		}
-		]
 		const joinTitle = (title) => {
 			return title.split(" ").join("-")
+		}
+		const truncateText = (text) => {
+			return `${text.split(" ").slice(0,16).join(" ")}...`
 		}
 		const onEnter = (el, done) => {
 			gsap.from(el, {
@@ -270,7 +268,8 @@ export default {
 			submit,
 			campgrounds,
 			joinTitle,
-			onEnter
+			onEnter,
+			truncateText,
 		};
 	},
 };
@@ -280,9 +279,6 @@ export default {
 main {
 	padding: 0 1.5em;
 }
-/* .form__search .form__contents {
-	max-width: 400px;
-} */
 
 .form__description {
 	margin-bottom: 1em;
@@ -329,7 +325,6 @@ fieldset {
 .form__group {
 	position: relative;
 	z-index: 1;
-	margin-top: 1em;
 }
 
 .submit {
@@ -337,7 +332,6 @@ fieldset {
 }
 .fade-up-enter-from,
 .fade-up-leave-to {
-	/* transform: translateY(10px) rotate(45deg); */
 	opacity: 0;
 }
 .fade-up-enter-active,

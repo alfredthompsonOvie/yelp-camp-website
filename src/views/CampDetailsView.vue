@@ -4,30 +4,39 @@
 
 		<main class="main detailsPageContents">
 			<div class="campground-details cardInfo">
-				<div class="card">
-					<img
-						src="@/assets/images/CampImages/HighQualityImages/Mount-Ulap.png"
-						alt="an image of mount ulap"
-					/>
-					<div class="card-heading">
-						<h2 class="card-title">Mount Ulap</h2>
+				<template v-if="campground.length">
+					<div class="card">
+						<img
+							src="@/assets/images/CampImages/HighQualityImages/Mount-Ulap.png"
+							alt="an image of mount ulap"
+						/>
+						<div class="card-heading">
+							<!-- <h2 class="card-title">Mount Ulap</h2> -->
+							<h2 class="card-title">{{ campground.title }}</h2>
+							<p>
+								<span class="dollar">$</span>
+								<!-- <span class="amount">104.99</span> -->
+								<span class="amount">{{ campground.price }}</span>
+								<span class="amount">/</span>
+								<span class="time">night</span>
+							</p>
+						</div>
+						<p class="card-description">
+							{{ campground.description }}
+						</p>
+						<!-- <p class="card-description">
+							Mount Ulap is a 7.7 kilometer moderately point-to-point trail
+							located near Tuba, Benguet, Philippines that offers the chance to
+							see wildlife and is rated as moderate. The trail is primarily used
+							for hiking.
+						</p> -->
 						<p>
-							<span class="dollar">$</span>
-							<span class="amount">104.99</span>
-							<span class="amount">/</span>
-							<span class="time">night</span>
+							<!-- <em>Submitted by Andrew Mike.</em> -->
+							<em>Submitted by {{ campground.submittedBY }}.</em>
 						</p>
 					</div>
-					<p class="card-description">
-						Mount Ulap is a 7.7 kilometer moderately point-to-point trail
-						located near Tuba, Benguet, Philippines that offers the chance to
-						see wildlife and is rated as moderate. The trail is primarily used
-						for hiking.
-					</p>
-					<p>
-						<em>Submitted by Andrew Mike.</em>
-					</p>
-				</div>
+
+				</template>
 			</div>
 
 			<div class="reviews">
@@ -92,14 +101,32 @@
 
 <script>
 import MainNav from "@/components/navigation/MainNav.vue";
-
+import { ref } from "vue";
+import getCollection from "../composables/getCollection";
 export default {
 	name: "DetailsComponent",
 	components: {
 		MainNav,
 	},
-	setup() {
-		return {};
+	props: ["id"],
+	setup(props) {
+
+		const { dataError, collection, getData } = getCollection()
+		const campground = ref([])
+
+		const fetchData = async () => {
+			await getData(props.id);
+			campground.value = collection.value
+			}
+		fetchData();
+		console.log(campground.value.length);
+
+
+		console.log(dataError.value);
+
+		return {
+			campground
+		};
 	},
 };
 </script>

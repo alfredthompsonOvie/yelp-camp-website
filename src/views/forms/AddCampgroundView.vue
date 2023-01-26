@@ -18,6 +18,7 @@
 						v-model="campgroundName"
 						:error="errors.campgroundName"
 					/>
+					
 
 					<BaseInput
 						label="Price"
@@ -28,20 +29,18 @@
 						v-model="price"
 						:error="errors.price"
 					/>
-					<!--! IMAGE -->
-					<!-- <BaseInput
-						label="Image"
-						placeholder="www.thepinoytravelter.com/2018/01/mt-ulap-diy-dayhike.html"
-						className="input--addCamp"
-						type="file"
-						name="image"
-						:error="errors.image"
-						v-model="image"
-						/> -->
-					<div class="form__control">
+
+					<BaseTextArea
+						label="Description"
+						name="description"
+						placeholder="The Seven Sisters is the 39th tallest waterfall in Norway. The 410-meter tall waterfall consists of seven separate streams, and the tallest of the seven has a free fall that measures 250 metres. The waterfall is located along the Geirangerfjordan in Stranda Municipality in More og Romsdal county. Norway."
+						v-model="description"
+						:error="errors.description"
+					/>
+					<div class="form__group">
 						<label for="image" class="label">Image </label>
 						<input
-							className="input--addCamp"
+							class="input--addCamp"
 							type="file"
 							id="image"
 							name="image"
@@ -51,14 +50,6 @@
 						/>
 						<p class="errorMessage">{{ errors.image }}</p>
 					</div>
-
-					<BaseTextArea
-						label="Description"
-						name="description"
-						placeholder="The Seven Sisters is the 39th tallest waterfall in Norway. The 410-meter tall waterfall consists of seven separate streams, and the tallest of the seven has a free fall that measures 250 metres. The waterfall is located along the Geirangerfjordan in Stranda Municipality in More og Romsdal county. Norway."
-						v-model="description"
-						:error="errors.description"
-					/>
 
 					<!-- button -->
 					<button 
@@ -90,7 +81,7 @@ import { object, string, number, mixed } from "yup";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 
-import getUser from "@/composables/getUser.js"
+import getUser from "@/composables/getUser"
 import useStorage from "@/composables/useStorage.js"
 import useFirestore from "@/composables/useFirestore.js"
 import { serverTimestamp } from "firebase/firestore";
@@ -116,8 +107,8 @@ export default {
 
 		const { url, error, filePath, uploadImage } = useStorage();
 		const { sendData } = useFirestore();
-		const { user } = getUser();
-		console.log(user.value);
+
+		const { user } = getUser()
 
 		function isValidFileType(fileType) {
 			console.log(fileType);
@@ -128,7 +119,7 @@ export default {
 		const schema = object({
 			campgroundName: string().required("This field is required"),
 			price: number().required("This field is required"),
-
+			description: string().required("This field is required"),
 			image: mixed()
 				.required("This field is required")
 				.test({
@@ -138,12 +129,6 @@ export default {
 						"Please provide a valid image type (.png, .jpg, .jpeg, .svg, .webp)",
 					test: (image) => isValidFileType(image?.type),
 				}),
-			// .test(
-			// 	"isValidType",
-			// 	"Please provide a valid image type (.png, .jpg, .jpeg, .svg, .webp)",
-			// 	image => isValidFileType(image?.type),
-			// ),
-			description: string().required("This field is required"),
 		});
 
 		const { handleSubmit, errors } = useForm({
@@ -152,23 +137,22 @@ export default {
 
 		const { value: campgroundName } = useField("campgroundName");
 		const { value: price } = useField("price");
-		const { handleChange, value: image } = useField("image");
 		const { value: description } = useField("description");
+		const { handleChange, value: image } = useField("image");
 
 		const submit = handleSubmit(async (values) => {
-			console.log("submited", values);
-			console.log("submited image", values.image);
+			// console.log("submited", values);
+			// console.log("submited image", values.image);
 			isPending.value = true;
 			await uploadImage(values.image)
-			console.log(url.value)
+			// console.log(url.value)
 
 			const sendingData = await sendData({
 				title: values.campgroundName,
 				price: values.price,
 				url: url.value,
 				description: values.description,
-				brief: "",
-				submittedBY: user.displayName,
+				submittedBY: user.value.displayName,
 				createdAt: serverTimestamp(),
 				comments: [],
 			})
@@ -177,7 +161,7 @@ export default {
 			router.push({ name: "campgrounds" })
 		});
 
-		console.log(user);
+		// console.log(user);
 
 		return {
 			submit,
@@ -187,7 +171,7 @@ export default {
 			handleChange,
 			description,
 			errors,
-			isPending
+			isPending,
 		};
 	},
 };
@@ -205,13 +189,13 @@ main {
 	margin-inline: auto;
 }
 
-.form__control {
+.form__group {
 	background-color: transparent;
 	width: 100%;
 	margin-top: 0.5em;
 	border: none;
 }
-.form__control input {
+.form__group input {
 	width: 100%;
 	padding: 1em;
 	padding-left: 3em;
@@ -234,7 +218,7 @@ input[type="file"] {
 input.input__error {
 	border: 2px solid red;
 }
-.form__control + .form__control {
+.form__group + .form__group {
 	margin-top: 1.2em;
 }
 
@@ -243,7 +227,7 @@ input.input__error {
 
 }
 @media (min-width: 580px) {
-	.form__control {
+	.form__group {
 		margin-top: 0em;
 	}
 }
