@@ -6,9 +6,9 @@ import { onAuthStateChanged } from "firebase/auth";
 const user = ref(auth.currentUser);
 
 onAuthStateChanged(auth, (_user) => {
-  console.log(_user);
+  // console.log(_user);
   user.value = _user;
-  console.log(user.value);
+  // console.log(user.value);
   // console.log("onAuthStateChanged: ",  user.value);
 })
 

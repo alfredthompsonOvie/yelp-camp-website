@@ -34,7 +34,8 @@ const router = createRouter({
     {
       path: '/camps/:id',
       name: 'CampDetailsView',
-      component: () => import('../views/CampDetailsView.vue')
+      component: () => import('../views/CampDetailsView.vue'),
+      props: true
     },
     {
       path: '/comment',

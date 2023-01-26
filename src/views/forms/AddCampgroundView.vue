@@ -90,10 +90,10 @@ import { object, string, number, mixed } from "yup";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 
-// import { storage } from "@/firebase/config";
-// import { ref } from "firebase/storage"
+import getUser from "@/composables/getUser.js"
 import useStorage from "@/composables/useStorage.js"
 import useFirestore from "@/composables/useFirestore.js"
+import { serverTimestamp } from "firebase/firestore";
 
 export default {
 	name: "AddCampgroundView",
@@ -116,6 +116,8 @@ export default {
 
 		const { url, error, filePath, uploadImage } = useStorage();
 		const { sendData } = useFirestore();
+		const { user } = getUser();
+		console.log(user.value);
 
 		function isValidFileType(fileType) {
 			console.log(fileType);
@@ -161,15 +163,21 @@ export default {
 			console.log(url.value)
 
 			const sendingData = await sendData({
-				campgroundName: values.campgroundName,
+				title: values.campgroundName,
 				price: values.price,
 				url: url.value,
 				description: values.description,
+				brief: "",
+				submittedBY: user.displayName,
+				createdAt: serverTimestamp(),
+				comments: [],
 			})
 			console.log(sendingData);
 			isPending.value = false
 			router.push({ name: "campgrounds" })
 		});
+
+		console.log(user);
 
 		return {
 			submit,

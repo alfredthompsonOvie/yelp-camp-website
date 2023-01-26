@@ -38,6 +38,41 @@
 			</form>
 
 			<div class="campgrounds">
+				<template
+				v-if="campgrounds.length"
+				>
+					<transition-group  
+					
+					@enter="onEnter"
+					:css="false"
+					>
+						<div
+						v-for="campground in campgrounds"
+						:key="campground.title"
+						class="campground"
+						>
+						<img
+							class="campCard-img campground__img"
+							:src="campground.url"
+							:alt="`an image of ${campground.title}`"
+						/>
+		
+						<h4 class="campCard-title campground__title">{{ campground.title }}</h4>
+						<p class="campCard-details campground__details">
+							{{ campground.description }}
+						</p>
+						<RouterLink
+							:to="{ name: 'CampDetailsView', params: { id: `${ joinTitle(campground.campgroundName)}` } }"
+							class="campground__btn"
+							data-camp="mount ulap"
+							>View Campground</RouterLink
+						>
+					
+					</div>
+					</transition-group>
+
+				</template>
+
 				<div class="campground">
 					<img
 						class="campCard-img campground__img"
@@ -162,13 +197,15 @@
 </template>
 
 <script>
-// import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import MainNav from "@/components/navigation/MainNav.vue";
 import BaseInput from "@/components/BaseInput.vue";
 
 import { useField, useForm } from "vee-validate";
-// import * as yup from "yup";
 import { object, string } from "yup";
+
+import getCollections from "@/composables/getCollections";
+import { gsap } from "gsap";
 
 export default {
 	name: "CampGroundsView",
@@ -177,12 +214,20 @@ export default {
 		BaseInput,
 	},
 	setup() {
+		const campgrounds = ref([]);
+		const { errorCollection, collections, getData } = getCollections()
+
+		
+		const sf = async () => {
+			await getData("users");
+			// console.log(collections.value);
+			campgrounds.value = collections.value
+			// console.log(campgrounds.value);
+		}
+		sf();
 		// Define a validation schema
 		const schema = object({
-			// email: yup.string().required().email(),
-			// name: yup.string().required(),
-			// password: yup.string().required().min(8),
-			search: string().required()
+			search: string().required("This field is required.")
 		});
 		// ===================================
 
@@ -194,13 +239,38 @@ export default {
 
 		const{ value: search } = useField("search")
 
+		// handle Search
 		const submit = handleSubmit(values => {
 			console.log("submit", values);
 		})
+
+
+		const cg = [
+			{
+				brief: "",
+			description: "The Calaguas Islands are located in the Municipality of Vinzons, in the Province of Camarines Norte. It is known for its pristine beaches—the most popular among these is the Mahabang Buhangin beach, which is made up of a long stretch of powdery white sand.",
+
+		}
+		]
+		const joinTitle = (title) => {
+			return title.split(" ").join("-")
+		}
+		const onEnter = (el, done) => {
+			gsap.from(el, {
+				autoAlpha: 0.01,
+				stagger: 0.2,
+				y: 10,
+				onComplete: done
+			})
+		} 
+
 		return {
 			search,
 			errors,
-			submit
+			submit,
+			campgrounds,
+			joinTitle,
+			onEnter
 		};
 	},
 };
