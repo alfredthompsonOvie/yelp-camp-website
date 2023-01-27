@@ -3,8 +3,8 @@
 		<MainNav />
 
 		<main class="main detailsPageContents">
-			<div class="campground-details cardInfo">
-				<template v-if="campground.length">
+			<template v-if="campground.length">
+				<div class="campground-details cardInfo">
 					<div class="card">
 						<img
 							src="@/assets/images/CampImages/HighQualityImages/Mount-Ulap.png"
@@ -12,17 +12,17 @@
 						/>
 						<div class="card-heading">
 							<!-- <h2 class="card-title">Mount Ulap</h2> -->
-							<h2 class="card-title">{{ campground.title }}</h2>
+							<h2 class="card-title">{{ campground[0].title }}</h2>
 							<p>
 								<span class="dollar">$</span>
 								<!-- <span class="amount">104.99</span> -->
-								<span class="amount">{{ campground.price }}</span>
+								<span class="amount">{{ campground[0].price }}</span>
 								<span class="amount">/</span>
 								<span class="time">night</span>
 							</p>
 						</div>
 						<p class="card-description">
-							{{ campground.description }}
+							{{ campground[0].description }}
 						</p>
 						<!-- <p class="card-description">
 							Mount Ulap is a 7.7 kilometer moderately point-to-point trail
@@ -32,64 +32,88 @@
 						</p> -->
 						<p>
 							<!-- <em>Submitted by Andrew Mike.</em> -->
-							<em>Submitted by {{ campground.submittedBY }}.</em>
+							<em>Submitted by {{ campground[0].submittedBY }}.</em>
 						</p>
 					</div>
-
-				</template>
-			</div>
-
-			<div class="reviews">
-				<div class="review-comment">
-					<div class="review-comment-title title-flex">
-						<h3>Adam Jones</h3>
-						<p>13h ago</p>
+				</div>
+	
+				<div class="reviews">
+					<template v-if="campground[0].comments.length">
+						<div 
+						class="review-comment"
+						v-for="comment in comments"
+						:key="comment.name"
+						>
+							<div class="review-comment-title title-flex">
+								<h3>{{ comment.name }}</h3>
+								<p>{{ comment.createdAt }}</p>
+							</div>
+							<p class="review-comment-details">
+								{{ comment.description }}
+							</p>
+						</div>
+					</template>
+					<div 
+					class="review-comment"
+					v-else>
+						<p>
+							No comment.
+						</p>
+						<p>
+							Be the first to leave a comment.
+						</p>
 					</div>
-					<p class="review-comment-details">
-						Honestly one of the best experiences ever, took us a while to figure
-						out how to get there but it was amazing!
-					</p>
-				</div>
-				<div class="review-comment">
-					<div class="review-comment-title title-flex">
-						<h3>Isaac Dylan</h3>
-						<p>1 day ago</p>
+					<!-- <div class="review-comment">
+						<div class="review-comment-title title-flex">
+							<h3>Adam Jones</h3>
+							<p>13h ago</p>
+						</div>
+						<p class="review-comment-details">
+							Honestly one of the best experiences ever, took us a while to figure
+							out how to get there but it was amazing!
+						</p>
 					</div>
-					<p class="review-comment-details">
-						Traveling changes you as a person, you gain more perspective, this
-						is the perfect spot to do that.
-					</p>
-				</div>
-				<div class="review-comment">
-					<div class="review-comment-title">
-						<h3>Hudson Luca</h3>
-						<p>3 days ago</p>
+					<div class="review-comment">
+						<div class="review-comment-title title-flex">
+							<h3>Isaac Dylan</h3>
+							<p>1 day ago</p>
+						</div>
+						<p class="review-comment-details">
+							Traveling changes you as a person, you gain more perspective, this
+							is the perfect spot to do that.
+						</p>
 					</div>
-					<p class="review-comment-details">
-						Definitely recommend going there, not too far and not a lot of
-						people to ruin the experience.
-					</p>
+					<div class="review-comment">
+						<div class="review-comment-title">
+							<h3>Hudson Luca</h3>
+							<p>3 days ago</p>
+						</div>
+						<p class="review-comment-details">
+							Definitely recommend going there, not too far and not a lot of
+							people to ruin the experience.
+						</p>
+					</div> -->
+					<div class="btnContainer inner-padding">
+	
+						<!-- todo how to pass params through routerlinks to the next page -->
+						<RouterLink
+							:to="{ name: 'CommentsView' }"
+							class="ctaBtn cta-leave-a-review"
+						>
+							<span>
+								<img
+									src="@/assets/images/ChatBubble.svg"
+									alt="chat bubble icon"
+								/>
+							</span>
+							<span>Leave a Review</span>
+						</RouterLink>
+					</div>
 				</div>
-				<div class="btnContainer inner-padding">
-
-					<!-- todo how to pass params through routerlinks to the next page -->
-					<RouterLink
-						:to="{ name: 'CommentsView' }"
-						class="ctaBtn cta-leave-a-review"
-					>
-						<span>
-							<img
-								src="@/assets/images/ChatBubble.svg"
-								alt="chat bubble icon"
-							/>
-						</span>
-						<span>Leave a Review</span>
-					</RouterLink>
+				<div class="mapContainer">
+					<img src="@/assets/images/Map.png" alt="an image of a map" />
 				</div>
-			</div>
-			<div class="mapContainer">
-				<img src="@/assets/images/Map.png" alt="an image of a map" />
-			</div>
+			</template>
 		</main>
 		<footer class="footer">
 			<RouterLink :to="{ name: 'home' }">
@@ -100,9 +124,11 @@
 </template>
 
 <script>
+import { ref, computed } from "vue";
 import MainNav from "@/components/navigation/MainNav.vue";
-import { ref } from "vue";
 import getCollection from "../composables/getCollection";
+
+import { useUserIdStore } from "@/stores/userId";
 export default {
 	name: "DetailsComponent",
 	components: {
@@ -112,20 +138,34 @@ export default {
 	setup(props) {
 
 		const { dataError, collection, getData } = getCollection()
-		const campground = ref([])
+		const campground = ref([]);
+
+		const store = useUserIdStore();
+		store.getUserID(props.id)
+		console.log(store.userId);
 
 		const fetchData = async () => {
 			await getData(props.id);
 			campground.value = collection.value
-			}
+			console.log(campground.value);
+			console.log( "cmmts" ,campground.value[0].comments);
+		}
 		fetchData();
 		console.log(campground.value.length);
 
 
 		console.log(dataError.value);
 
+		const comments = computed(() => {
+			const cmtArr = [];
+			campground.value[0].comments.forEach(d => cmtArr.push(JSON.parse(d)))
+			console.log(cmtArr);
+			return cmtArr
+		})
+
 		return {
-			campground
+			campground,
+			comments
 		};
 	},
 };

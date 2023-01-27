@@ -40,7 +40,8 @@ const router = createRouter({
     {
       path: '/comment',
       name: 'CommentsView',
-      component: () => import('../views/forms/CommentsView.vue')
+      component: () => import('../views/forms/CommentsView.vue'),
+      props: true
     },
     {
       path: '/addcamp',

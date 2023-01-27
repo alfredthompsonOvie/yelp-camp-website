@@ -109,7 +109,7 @@ export default {
 		const { sendData } = useFirestore();
 
 		const { user } = getUser()
-
+		console.log(user.value);
 		function isValidFileType(fileType) {
 			console.log(fileType);
 			return AllowedFileTypes.value.includes(fileType);
@@ -155,6 +155,9 @@ export default {
 				submittedBY: user.value.displayName,
 				createdAt: serverTimestamp(),
 				comments: [],
+				id: user.value.uid,
+				userID: user.value.uid,
+				docId: user.value.uid,
 			})
 			console.log(sendingData);
 			isPending.value = false

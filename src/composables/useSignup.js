@@ -21,12 +21,13 @@ const signup = async (email, password, displayName) => {
 			throw new Error("Could not complete signup");
 		}
 		// ! check if it works, trying to save username to database
-		console.log(response.user);
-		const updatedProfile = await updateProfile(auth.currentUser, {
-			displayName
+		// console.log(response.user);
+		// updatedProfile
+		await updateProfile(auth.currentUser, {
+			displayName,
+
 		})
-		console.log(updatedProfile);
-		console.log(auth.currentUser);
+		// console.log(auth.currentUser);
 
 		error.value = null;
 		isPending.value = false;

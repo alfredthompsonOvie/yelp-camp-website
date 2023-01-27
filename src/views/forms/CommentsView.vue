@@ -4,19 +4,21 @@
 
 		<form class="form" @submit.prevent="submit">
 			<fieldset class="form__contents">
-				<legend class="form__title">
-					Add New Comment
-				</legend>
+				<legend class="form__title">Add New Comment</legend>
 
-				<BaseTextArea 
-						label="Description"
-						name="description"
-						placeholder="This was probably the best camp i've visited this past year, definitely recommend visiting any time soon."
-						v-model="description" 
-						:error="errors.description"
-						/>
-
-				<button type="submit" class="submit">Post Comment</button>
+				<BaseTextArea
+					label="Description"
+					name="description"
+					placeholder="This was probably the best camp i've visited this past year, definitely recommend visiting any time soon."
+					v-model="description"
+					:error="errors.description"
+				/>
+				<div>{{ error }}</div>
+				<button 
+				type="submit" 
+				class="submit"
+				:disabled="isPending"
+				>Post Comment</button>
 			</fieldset>
 		</form>
 	</div>
@@ -31,33 +33,58 @@ import { object, string } from "yup";
 
 import { useRouter } from "vue-router";
 
+import getUser from "@/composables/getUser";
+
+
+import { useUserIdStore } from "@/stores/userId"
+
+import useAddComments from "@/composables/useAddComments";
+import { ref } from "vue";
+
 export default {
-	name: "SignUp",
+	name: "CommentsView",
 	components: {
 		MainNav,
 		BaseTextArea,
 	},
 	setup() {
 		const router = useRouter();
+		const { user } = getUser();
+
+		const store = useUserIdStore();
+		console.log(store.userId);
+		const { error, addComments } = useAddComments();
+
+		const isPending = ref(false);
 
 		const schema = object({
-			description: string().required()
+			description: string().required(),
 		});
 
 		const { handleSubmit, errors } = useForm({
-			validationSchema: schema
+			validationSchema: schema,
 		});
 
-		const { value: description } = useField('description');
+		const { value: description } = useField("description");
 
-		const submit = handleSubmit(values => {
-			console.log(values);
-			router.push({ name: "CampDetailsView"})
-		})
+		const submit = handleSubmit(async (values) => {
+			isPending.value = true;
+			const details = {
+				name: user.value.displayName,
+				description: values.description,
+			}
+			console.log(details);
+
+			await addComments("users", store.userId, details)
+			isPending.value = false;
+			router.push({ name: "CampDetailsView", params: { id: store.userId} });
+		});
 		return {
 			submit,
 			description,
 			errors,
+			error,
+			isPending,
 		};
 	},
 };
@@ -66,14 +93,15 @@ export default {
 <style scoped>
 .form {
 	padding: 0 1.5em;
-	margin: 3em 0; 
+	margin: 3em 0;
 	width: 100%;
 }
 .form__contents {
 	margin-inline: auto;
 }
 @media (min-width: 768px) and (max-width: 991px) {
-	.form, .testimonial {
+	.form,
+	.testimonial {
 		padding-inline: 3em;
 	}
 }
@@ -85,4 +113,3 @@ export default {
 	}
 }
 </style>
-
