@@ -36,32 +36,26 @@
 						</p>
 					</div>
 				</div>
-	
+
 				<div class="reviews">
 					<template v-if="campground[0].comments.length">
-						<div 
-						class="review-comment"
-						v-for="comment in comments"
-						:key="comment.name"
+						<div
+							class="review-comment"
+							v-for="comment in comments"
+							:key="comment.name"
 						>
 							<div class="review-comment-title title-flex">
 								<h3>{{ comment.name }}</h3>
-								<p>{{ comment.createdAt }}</p>
+								<!-- <p>{{ formatDate(comment.createdAt) }}</p> -->
 							</div>
 							<p class="review-comment-details">
 								{{ comment.description }}
 							</p>
 						</div>
 					</template>
-					<div 
-					class="review-comment"
-					v-else>
-						<p>
-							No comment.
-						</p>
-						<p>
-							Be the first to leave a comment.
-						</p>
+					<div class="review-comment" v-else>
+						<p>No comment.</p>
+						<p>Be the first to leave a comment.</p>
 					</div>
 					<!-- <div class="review-comment">
 						<div class="review-comment-title title-flex">
@@ -94,7 +88,6 @@
 						</p>
 					</div> -->
 					<div class="btnContainer inner-padding">
-	
 						<!-- todo how to pass params through routerlinks to the next page -->
 						<RouterLink
 							:to="{ name: 'CommentsView' }"
@@ -129,6 +122,9 @@ import MainNav from "@/components/navigation/MainNav.vue";
 import getCollection from "../composables/getCollection";
 
 import { useUserIdStore } from "@/stores/userId";
+
+import dayjs from 'dayjs'
+import { formatDistance } from 'date-fns'
 export default {
 	name: "DetailsComponent",
 	components: {
@@ -136,36 +132,61 @@ export default {
 	},
 	props: ["id"],
 	setup(props) {
-
-		const { dataError, collection, getData } = getCollection()
+		const { dataError, collection, getData } = getCollection();
 		const campground = ref([]);
 
 		const store = useUserIdStore();
-		store.getUserID(props.id)
+		store.getUserID(props.id);
 		console.log(store.userId);
 
 		const fetchData = async () => {
 			await getData(props.id);
-			campground.value = collection.value
+			campground.value = collection.value;
 			console.log(campground.value);
-			console.log( "cmmts" ,campground.value[0].comments);
-		}
+			console.log("cmmts", campground.value[0].comments);
+		};
 		fetchData();
 		console.log(campground.value.length);
-
 
 		console.log(dataError.value);
 
 		const comments = computed(() => {
 			const cmtArr = [];
-			campground.value[0].comments.forEach(d => cmtArr.push(JSON.parse(d)))
+			campground.value[0].comments.forEach((d) => cmtArr.push(JSON.parse(d)));
 			console.log(cmtArr);
-			return cmtArr
-		})
+			return cmtArr;
+		});
+
+		const formatDate = (time) => {
+			return time
+		}
+
+		// const modified = new Date().toLocaleDateString();
+		let date = new Date().getDate();
+		let day1 = new Date().toLocaleString();
+		console.log("day1", day1);
+		let month = new Date().getMonth();
+		console.log(String(month + 1).padStart(2, "0"));
+		month = String(month + 1).padStart(2, "0")
+
+		let year = new Date().getFullYear();
+
+		let dateFormat = `${year}-${month}-${date}`;
+		console.log("dateFormat", dateFormat);
+		// formatDistance(date/[past], baseDate/[present], [options])
+
+		const result = formatDistance(new Date(2014, 6, 2), new Date(2015, 0, 1), { includeSeconds: true, addSuffix: true })
+
+		const result2 = formatDistance(new Date(2023, 0, 28), new Date(2023, 0, 28), { includeSeconds: true, addSuffix: true })
+
+		console.log(result);
+		console.log(" result2 ",result2);
+
 
 		return {
 			campground,
-			comments
+			comments,
+			formatDate
 		};
 	},
 };
@@ -183,69 +204,69 @@ main {
 	margin-inline: auto;
 }
 
-.card{
+.card {
 	padding: 1.3em;
-	box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
+	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
 	border-radius: 5px;
- margin-bottom: 2em;
+	margin-bottom: 2em;
 }
 .card img {
- border-radius: 5px;
- width: 100%;
+	border-radius: 5px;
+	width: 100%;
 }
 .card * + * {
- margin-top: .5em;
+	margin-top: 0.5em;
 }
-.card-heading{
- display: flex;
- align-items: center;
- justify-content: space-between;
+.card-heading {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
-.card p{
-	font-size: .8rem;
+.card p {
+	font-size: 0.8rem;
 	line-height: 1.2;
 }
 .reviews {
-	box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
- border-radius: 5px;
+	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+	border-radius: 5px;
 	padding: 1.3em;
- padding-top: 0;
- margin-bottom: 3em;
+	padding-top: 0;
+	margin-bottom: 3em;
 }
-.review-comment-title{
- margin-bottom: 1em;
+.review-comment-title {
+	margin-bottom: 1em;
 	display: flex;
- align-items: center;
- justify-content: space-between;
+	align-items: center;
+	justify-content: space-between;
 }
 .reviews > * + * {
- border-top: 1px solid rgba(0, 0, 0, 0.1);
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-.review-comment{
- padding: 1.5em 0;
+.review-comment {
+	padding: 1.5em 0;
 }
-.btnContainer{
- padding: 2em 0 0;
+.btnContainer {
+	padding: 2em 0 0;
 }
 .cta-leave-a-review {
- background-color: #000;
- padding: 1em;
- display: flex;
- align-items: center;
- gap: 1em;
- color: #fff;
- width: 13em;
- border-radius: 5px;
+	background-color: #000;
+	padding: 1em;
+	display: flex;
+	align-items: center;
+	gap: 1em;
+	color: #fff;
+	width: 13em;
+	border-radius: 5px;
 }
-.mapContainer{
+.mapContainer {
 	padding: 1.3em;
-	box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
- border-radius: 5px;
- margin-bottom: 1em;
+	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+	border-radius: 5px;
+	margin-bottom: 1em;
 	overflow: hidden;
 }
 .mapContainer img {
- width: 100%;
+	width: 100%;
 	height: 100%;
 }
 
@@ -258,8 +279,8 @@ main {
 }
 @media (min-width: 992px) {
 	main {
-	padding: 0;
-}
+		padding: 0;
+	}
 	.mapContainer {
 		grid-column: 1;
 		grid-row: 1;
@@ -271,21 +292,26 @@ main {
 		grid-column: 2;
 		grid-row: 1;
 	}
+
+	.card,
+	.reviews {
+		max-width: 100%;
+		margin-inline: auto;
+	}
 	.reviews {
 		grid-column: 2;
 		grid-row: 2;
 		padding: 2em;
 		padding-top: 0;
 		margin-bottom: 0em;
+		/* width: 100%; */
 	}
-	.card,
-	.reviews {
-		max-width: 100%;
-		margin-inline: auto;
+	/*.review-comment {
+		width: 100%;
+	} */
+	.btnContainer {
+		display: flex;
+		justify-content: flex-end;
 	}
-.btnContainer {
-	display: flex;
-	justify-content: flex-end;
-}
 }
 </style>

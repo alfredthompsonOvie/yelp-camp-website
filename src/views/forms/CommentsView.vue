@@ -77,7 +77,9 @@ export default {
 
 			await addComments("users", store.userId, details)
 			isPending.value = false;
-			router.push({ name: "CampDetailsView", params: { id: store.userId} });
+			if (!error.value) {
+				router.push({ name: "CampDetailsView", params: { id: store.userId} });
+			}
 		});
 		return {
 			submit,
