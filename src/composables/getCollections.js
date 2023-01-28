@@ -1,4 +1,5 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+// import { collection, getDocs } from "firebase/firestore";
 // import { collection, getDocs, onSnapshot } from "firebase/firestore";
 
 import { db } from "../firebase/config";
@@ -12,10 +13,14 @@ const getCollections = () => {
 
 	const getData = async (col) => {
 		try {
-			const querySnapshot = await getDocs(collection(db, col));
+			const campRef = collection(db, col)
+			const q = query(campRef, orderBy("createdAt", "desc"));
+			console.log(q);
+			// const querySnapshot = await getDocs(collection(db, col));
+			const querySnapshot = await getDocs(q);
 
 			let docs = querySnapshot.docs.map((doc) => {
-				console.log(doc.id, " => ", doc.data());
+				// console.log(doc.id, " => ", doc.data());
 			return {
 						...doc.data(),
 						id: doc.id
