@@ -46,7 +46,7 @@
 						>
 							<div class="review-comment-title title-flex">
 								<h3>{{ comment.name }}</h3>
-								<!-- <p>{{ formatDate(comment.createdAt) }}</p> -->
+								<p>{{ formatDate(comment.commentedAt) }}</p>
 							</div>
 							<p class="review-comment-details">
 								{{ comment.description }}
@@ -123,8 +123,9 @@ import getCollection from "../composables/getCollection";
 
 import { useUserIdStore } from "@/stores/userId";
 
-import dayjs from 'dayjs'
-import { formatDistance } from 'date-fns'
+
+// import { formatDistance } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 export default {
 	name: "DetailsComponent",
 	components: {
@@ -137,18 +138,18 @@ export default {
 
 		const store = useUserIdStore();
 		store.getUserID(props.id);
-		console.log(store.userId);
+		// console.log(store.userId);
 
 		const fetchData = async () => {
 			await getData(props.id);
 			campground.value = collection.value;
-			console.log(campground.value);
-			console.log("cmmts", campground.value[0].comments);
+			// console.log(campground.value);
+			// console.log("cmmts", campground.value[0].comments);
 		};
 		fetchData();
-		console.log(campground.value.length);
+		// console.log(campground.value.length);
 
-		console.log(dataError.value);
+		// console.log(dataError.value);
 
 		const comments = computed(() => {
 			const cmtArr = [];
@@ -157,31 +158,11 @@ export default {
 			return cmtArr;
 		});
 
-		const formatDate = (time) => {
-			return time
+		const formatDate = (pastDate) => {
+			const result = formatDistanceToNow(new Date(pastDate), { includeSeconds: true, addSuffix: true })
+
+			return result;
 		}
-
-		// const modified = new Date().toLocaleDateString();
-		let date = new Date().getDate();
-		let day1 = new Date().toLocaleString();
-		console.log("day1", day1);
-		let month = new Date().getMonth();
-		console.log(String(month + 1).padStart(2, "0"));
-		month = String(month + 1).padStart(2, "0")
-
-		let year = new Date().getFullYear();
-
-		let dateFormat = `${year}-${month}-${date}`;
-		console.log("dateFormat", dateFormat);
-		// formatDistance(date/[past], baseDate/[present], [options])
-
-		const result = formatDistance(new Date(2014, 6, 2), new Date(2015, 0, 1), { includeSeconds: true, addSuffix: true })
-
-		const result2 = formatDistance(new Date(2023, 0, 28), new Date(2023, 0, 28), { includeSeconds: true, addSuffix: true })
-
-		console.log(result);
-		console.log(" result2 ",result2);
-
 
 		return {
 			campground,

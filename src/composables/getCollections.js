@@ -1,30 +1,40 @@
 import { collection, getDocs } from "firebase/firestore";
+// import { collection, getDocs, onSnapshot } from "firebase/firestore";
 
-import { ref } from "vue";
 import { db } from "../firebase/config";
+import { ref } from "vue";
+
 
 const getCollections = () => {
+	// change errorCollection to either errorCollections or just error
 	const errorCollection = ref(null);
 	const collections = ref([]);
 
 	const getData = async (col) => {
 		try {
 			const querySnapshot = await getDocs(collection(db, col));
-			console.log(querySnapshot);
-			const docs = [];
-			querySnapshot.forEach((doc) => {
-				// doc.data() is never undefined for query doc snapshots
-        // console.log(doc.id, " => ", doc.data());
-				docs.push({
-					...doc.data(),
-					id: doc.id
-				})
-				// console.log(doc);
+
+			let docs = querySnapshot.docs.map((doc) => {
+				console.log(doc.id, " => ", doc.data());
+			return {
+						...doc.data(),
+						id: doc.id
+					}
 			});
-			collections.value = docs
+			collections.value = docs;
+
+		// 	const  unsub = onSnapshot(collection(db, col), (snapshot) => {
+		// 		let docs = snapshot.docs.map(doc => {
+		// 			return {
+		// 				...doc.data(),
+		// 				id: doc.id
+		// 			}
+		// 		})
+
+		// 	collections.value = docs;
+		// });
 		} catch (err) {
 			errorCollection.value = err.message;
-			console.log(err.message);
 		}
 	};
 

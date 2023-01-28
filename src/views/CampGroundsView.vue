@@ -75,6 +75,11 @@
 					</transition-group>
 
 				</template>
+				<section class="" v-if="errorCollection">
+					<p>
+						{{ errorCollection }}
+					</p>
+				</section>
 
 				<!-- <div class="campground">
 					<img
@@ -223,17 +228,15 @@ export default {
 		
 		const fetchDataFromDb = async () => {
 			await getData("users");
-			// console.log(collections.value);
 			campgrounds.value = collections.value
-			console.log(campgrounds.value);
 		}
 		fetchDataFromDb();
+
 		// Define a validation schema
 		const schema = object({
 			search: string().required("This field is required.")
 		});
 		// ===================================
-
 
 		// Create a form context with the validation schema
 		const { handleSubmit, errors } = useForm({
@@ -270,6 +273,7 @@ export default {
 			joinTitle,
 			onEnter,
 			truncateText,
+			errorCollection
 		};
 	},
 };

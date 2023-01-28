@@ -12,14 +12,15 @@ const useAddComments = () => {
 	const addComments = async (col, id, data) => {
 		try {
 			const colRef = doc(db, col, id);
-      const modified = new Date().getDate();
+			const modified = new Date();
+			console.log(modified);
 
 			// Atomically add a new comment to the "comments" array field.
 			await updateDoc(colRef, {
 				comments: arrayUnion(
 					JSON.stringify({
 						...data,
-						createdAt: modified,
+						commentedAt: modified,
 					})
 				),
 			});
