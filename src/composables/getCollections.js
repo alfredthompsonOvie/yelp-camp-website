@@ -1,31 +1,24 @@
-// import { collection, getDocs, query, orderBy, onSnapshot } from "firebase/firestore";
-import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
-// import { collection, getDocs } from "firebase/firestore";
-// import { collection, getDocs, onSnapshot } from "firebase/firestore";
-// import { collection, onSnapshot } from "firebase/firestore";
-
+import { collection, query, orderBy, where, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/config";
-// import { ref } from "vue";
 import { ref, watchEffect } from "vue";
 
 
 const getCollections = (c, q) => {
 	// change errorCollection to either errorCollections or just error
-	const errorCollection = ref(null);
+	const error = ref(null);
 	const documents = ref([]);
 
-	// 
-	// const documents = ref(null)
+	// q = ["userUid", "==", currentUserId]
 	try {
-		let colRef = collection(db, c);
+		const colRef = collection(db, c);
+		let campRef = query(colRef, orderBy("createdAt", "desc"))
 
-		// if (q) {
-		// 		colRef = 
-		// 	// const q = query(campRef, orderBy("createdAt", "desc"));
-		// }
+		if (q) {
+			campRef = query(campRef, where(...q), orderBy("createdAt", "desc"));
+		}
 
 	
-		const unsub = onSnapshot(colRef, snapshot => {
+		const unsub = onSnapshot(campRef, snapshot => {
 			let docs = []
 			snapshot.docs.forEach(doc => {
 				docs.push({
@@ -40,7 +33,7 @@ const getCollections = (c, q) => {
 			onInvalidate(() => unsub())
 		})
 	} catch (e) {
-		errorCollection.value = e.message
+		error.value = e.message
 	}
 
 
@@ -76,7 +69,7 @@ const getCollections = (c, q) => {
 	// 	}
 	// };
 
-	return { errorCollection, documents };
+	return { error, documents };
 	// return { errorCollection, collections, getData, documents };
 };
 

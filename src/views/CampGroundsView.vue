@@ -75,9 +75,9 @@
 					</transition-group>
 
 				</template>
-				<section class="" v-if="errorCollection">
+				<section class="" v-if="error">
 					<p>
-						{{ errorCollection }}
+						{{ error }}
 					</p>
 				</section>
 
@@ -223,8 +223,8 @@ export default {
 	},
 	setup() {
 		// const campgrounds = ref([]);
-		// const { errorCollection, collections, getData } = getCollections()
-		const { errorCollection, documents: campgrounds } = getCollections("users")
+		// const { error, collections, getData } = getCollections()
+		const { error, documents: campgrounds } = getCollections("users")
 
 		
 		// const fetchDataFromDb = async () => {
@@ -274,7 +274,7 @@ export default {
 			joinTitle,
 			onEnter,
 			truncateText,
-			errorCollection
+			error
 		};
 	},
 };
