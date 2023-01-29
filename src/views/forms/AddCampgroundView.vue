@@ -155,9 +155,7 @@ export default {
 				submittedBY: user.value.displayName,
 				createdAt: serverTimestamp(),
 				comments: [],
-				id: user.value.uid,
-				userID: user.value.uid,
-				docId: user.value.uid,
+				userUid: user.value.uid,
 			})
 			console.log(sendingData);
 			isPending.value = false

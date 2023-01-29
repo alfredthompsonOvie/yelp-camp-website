@@ -205,7 +205,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+// import { ref } from "vue";
 import MainNav from "@/components/navigation/MainNav.vue";
 import BaseInput from "@/components/BaseInput.vue";
 
@@ -222,15 +222,16 @@ export default {
 		BaseInput,
 	},
 	setup() {
-		const campgrounds = ref([]);
-		const { errorCollection, collections, getData } = getCollections()
+		// const campgrounds = ref([]);
+		// const { errorCollection, collections, getData } = getCollections()
+		const { errorCollection, documents: campgrounds } = getCollections("users")
 
 		
-		const fetchDataFromDb = async () => {
-			await getData("users");
-			campgrounds.value = collections.value
-		}
-		fetchDataFromDb();
+		// const fetchDataFromDb = async () => {
+		// 	await getData("users");
+		// 	campgrounds.value = collections.value
+		// }
+		// fetchDataFromDb();
 
 		// Define a validation schema
 		const schema = object({
