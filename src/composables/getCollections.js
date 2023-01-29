@@ -3,37 +3,42 @@ import { db } from "../firebase/config";
 import { ref, watchEffect } from "vue";
 
 
-const getCollections = (c, q) => {
+const getCollections = () => {
 	// change errorCollection to either errorCollections or just error
 	const error = ref(null);
 	const documents = ref([]);
 
 	// q = ["userUid", "==", currentUserId]
-	try {
-		const colRef = collection(db, c);
-		let campRef = query(colRef, orderBy("createdAt", "desc"))
-
-		if (q) {
-			campRef = query(campRef, where(...q), orderBy("createdAt", "desc"));
+	// OR
+	// q = ["title", "==", values.search]
+	const fetchDataFromDb = (c, q) => {
+		try {
+			const colRef = collection(db, c);
+			let campRef = query(colRef, orderBy("createdAt", "desc"))
+	
+			if (q) {
+				campRef = query(colRef, where(...q), orderBy("createdAt", "desc"));
+			}
+	
+		
+			const unsub = onSnapshot(campRef, snapshot => {
+				let docs = []
+				snapshot.docs.forEach(doc => {
+					docs.push({
+						...doc.data(),
+						id: doc.id
+					})
+				})
+				documents.value = docs
+			})
+			
+			watchEffect((onInvalidate) => {
+				onInvalidate(() => unsub())
+			})
+		} catch (e) {
+			error.value = e.message
 		}
 
-	
-		const unsub = onSnapshot(campRef, snapshot => {
-			let docs = []
-			snapshot.docs.forEach(doc => {
-				docs.push({
-					...doc.data(),
-					id: doc.id
-				})
-			})
-			documents.value = docs
-		})
-		
-		watchEffect((onInvalidate) => {
-			onInvalidate(() => unsub())
-		})
-	} catch (e) {
-		error.value = e.message
 	}
 
 
@@ -69,7 +74,7 @@ const getCollections = (c, q) => {
 	// 	}
 	// };
 
-	return { error, documents };
+	return { error, documents, fetchDataFromDb };
 	// return { errorCollection, collections, getData, documents };
 };
 

@@ -19,8 +19,8 @@
 							v-model="search"
 							type="search"
 							name="search"
-							:error="errors.search"
-						/>
+							/>
+							<!-- :error="errors.search" -->
 
 						<button type="submit" class="submit">Search</button>
 
@@ -28,8 +28,8 @@
 							src="@/assets/images/SearchIcon.svg"
 							alt="search icon"
 							class="search__icon"
-							:class="{ 'search__icon--error': errors.search }"
-						/>
+							/>
+							<!-- :class="{ 'search__icon--error': errors.search }" -->
 					</div>
 					<RouterLink :to="{ name: 'AddCampgroundView' }" class="cta-addCamp"
 						>Or add your own campground</RouterLink
@@ -205,7 +205,7 @@
 </template>
 
 <script>
-// import { ref } from "vue";
+import { ref, watch } from "vue";
 import MainNav from "@/components/navigation/MainNav.vue";
 import BaseInput from "@/components/BaseInput.vue";
 
@@ -222,11 +222,12 @@ export default {
 		BaseInput,
 	},
 	setup() {
+		const search = ref('');
 		// const campgrounds = ref([]);
 		// const { error, collections, getData } = getCollections()
-		const { error, documents: campgrounds } = getCollections("users")
+		const { error, documents: campgrounds, fetchDataFromDb } = getCollections()
+		fetchDataFromDb("users")
 
-		
 		// const fetchDataFromDb = async () => {
 		// 	await getData("users");
 		// 	campgrounds.value = collections.value
@@ -234,22 +235,37 @@ export default {
 		// fetchDataFromDb();
 
 		// Define a validation schema
-		const schema = object({
-			search: string().required("This field is required.")
-		});
+		// const schema = object({
+		// 	search: string()
+		// });
 		// ===================================
 
 		// Create a form context with the validation schema
-		const { handleSubmit, errors } = useForm({
-			validationSchema: schema,
-		});
+		// const { handleSubmit, errors } = useForm({
+		// 	validationSchema: schema,
+		// });
 
-		const{ value: search } = useField("search")
+		// const { value: search } = useField("search")
+		watch(search, (nV) => {
+			if (nV === "") {
+				fetchDataFromDb("users");
+			}
+			console.log(nV);
+		})
 
 		// handle Search
-		const submit = handleSubmit(values => {
-			console.log("submit", values);
-		})
+		// const submit = handleSubmit(values => {
+		// 	console.log("submit", values.search);
+		// // const { error, documents: campgrounds } = getCollections("users", ["title", "==", values.search])
+		// 	fetchDataFromDb("users", ["title", "==", values.search])
+		// 	if (values.search === "") {
+		// 		fetchDataFromDb("users")
+		// 	}
+		// })
+
+		const submit = () => {
+			fetchDataFromDb("users", ["title", "==", search.value])
+		}
 
 		const joinTitle = (title) => {
 			return title.split(" ").join("-")
@@ -268,7 +284,7 @@ export default {
 
 		return {
 			search,
-			errors,
+			// errors,
 			submit,
 			campgrounds,
 			joinTitle,
@@ -365,6 +381,8 @@ fieldset {
 	flex-direction: column;
 	transition: all 0.3s;
 	border-radius: 5.5px;
+	max-width: 320px;
+	justify-self: center;
 }
 /* .campground:hover {
 	transform: scale(1.02);
