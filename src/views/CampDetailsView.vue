@@ -104,9 +104,15 @@
 					</div>
 				</div>
 				<div class="mapContainer">
-					<img src="@/assets/images/Map.png" alt="an image of a map" />
+					<BaseMap />
+					<!-- <section id="map"></section> -->
+					<!-- <img src="@/assets/images/Map.png" alt="an image of a map" /> -->
 				</div>
 			</template>
+
+			<section v-if="dataError">
+				<p>{{ dataError }}</p>
+			</section>
 		</main>
 		<footer class="footer">
 			<RouterLink :to="{ name: 'home' }">
@@ -117,6 +123,7 @@
 </template>
 
 <script>
+import BaseMap from "@/components/BaseMap.vue"
 import { ref, computed } from "vue";
 import MainNav from "@/components/navigation/MainNav.vue";
 import getCollection from "../composables/getCollection";
@@ -130,6 +137,7 @@ export default {
 	name: "DetailsComponent",
 	components: {
 		MainNav,
+		BaseMap,
 	},
 	props: ["id"],
 	setup(props) {
@@ -167,7 +175,8 @@ export default {
 		return {
 			campground,
 			comments,
-			formatDate
+			formatDate,
+			dataError
 		};
 	},
 };
