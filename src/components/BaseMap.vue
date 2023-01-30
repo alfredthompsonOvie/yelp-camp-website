@@ -41,5 +41,6 @@ export default {
 <style scoped>
 #mapContainer {
 	padding-top: 23em;
+	height: 100%;
 }
 </style>

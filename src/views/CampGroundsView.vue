@@ -41,38 +41,37 @@
 				<template
 				v-if="campgrounds.length"
 				>
-					<transition-group  
-					
+					<TransitionGroup  
+					appear
 					@enter="onEnter"
 					:css="false"
 					>
 						<div
-						v-for="campground in campgrounds"
-						:key="campground.title"
-						class="campground"
-						>
-						<img
-							class="campCard-img campground__img"
-							:src="campground.url"
-							:alt="`an image of ${campground.title}`"
-						/>
-		
-						<h4 class="campCard-title campground__title">
-							{{ campground.title }}
-							<!-- {{ campground.id }} -->
-						</h4>
-						<p class="campCard-details campground__details">
-							{{ truncateText(campground.description) }}
-						</p>
-						<RouterLink
-							:to="{ name: 'CampDetailsView', params: { id: campground.id } }"
-							class="campground__btn"
-							data-camp="mount ulap"
-							>View Campground</RouterLink
-						>
-					
-					</div>
-					</transition-group>
+							v-for="campground in campgrounds"
+							:key="campground.title"
+							class="campground"
+							>
+							<img
+								class="campCard-img campground__img"
+								:src="campground.url"
+								:alt="`an image of ${campground.title}`"
+							/>
+			
+							<h4 class="campCard-title campground__title">
+								{{ campground.title }}
+							</h4>
+							<p class="campCard-details campground__details">
+								{{ truncateText(campground.description) }}
+							</p>
+							<RouterLink
+								:to="{ name: 'CampDetailsView', params: { id: campground.id } }"
+								class="campground__btn"
+								data-camp="mount ulap"
+								>View Campground</RouterLink
+							>
+						
+						</div>
+					</TransitionGroup>
 
 				</template>
 				<section class="" v-if="error">
@@ -80,120 +79,6 @@
 						{{ error }}
 					</p>
 				</section>
-
-				<!-- <div class="campground">
-					<img
-						class="campCard-img campground__img"
-						src="@/assets/images/CampImages/HighQualityImages/Mount-Ulap.png"
-						alt="an image of mount ulap"
-					/>
-
-					<h4 class="campCard-title campground__title">Mount Ulap</h4>
-					<p class="campCard-details campground__details">
-						One of the most famous hikes in Benguet is Mt Ulap in Itogon
-					</p>
-					<RouterLink
-						:to="{ name: 'CampDetailsView', params: { id: 'Mount-Ulap' } }"
-						class="campground__btn"
-						data-camp="mount ulap"
-						>View Campground</RouterLink
-					>
-				</div>
-				<div class="campground">
-					<img
-						class="campCard-img campground__img"
-						src="@/assets/images/CampImages/HighQualityImages/Calaguas-Island.jpg"
-						alt="an image of Calaguas Islands"
-					/>
-
-					<h4 class="campCard-title campground__title">Calaguas Islands</h4>
-					<p class="campground__details">
-						A paradise of islands that can rival the white sand beauty of
-						Boracay.
-					</p>
-					<RouterLink
-						:to="{
-							name: 'CampDetailsView',
-							params: { id: 'Calaguas-Islands' },
-						}"
-						class="campground__btn"
-						data-camp="Calaguas Islands"
-						>View Campground</RouterLink
-					>
-				</div>
-				<div class="campground">
-					<img
-						class="campCard-img campground__img"
-						src="@/assets/images/CampImages/HighQualityImages/Onay-Beach.jpg"
-						alt="an image of Onay Beach"
-					/>
-
-					<h4 class="campground__title">Onay Beach</h4>
-					<p class="campground__details">
-						This is one of the best beach camping sites, beautiful and pristine.
-					</p>
-					<a
-						href="individualCampground.html"
-						class="campground__btn"
-						data-camp="Onay Beach"
-						>View Campground</a
-					>
-				</div>
-				<div class="campground">
-					<img
-						class="campCard-img campground__img"
-						src="@/assets/images/CampImages/HighQualityImages/Seven-Sisters-Waterfall.jpg"
-						alt="an image of Seven Sisters Waterfall"
-					/>
-
-					<h4 class="campground__title">Seven Sisters Waterfall</h4>
-					<p class="campground__details">
-						The Seven Sisters is the 39th tallest waterfall in Norway.
-					</p>
-					<a
-						href="individualCampground.html"
-						class="campground__btn"
-						data-camp="Seven Sisters Waterfall"
-						>View Campground</a
-					>
-				</div>
-				<div class="campground">
-					<img
-						class="campCard-img campground__img"
-						src="@/assets/images/CampImages/HighQualityImages/Latik-Riverside.jpg"
-						alt="an image of Latik Riverside"
-					/>
-
-					<h4 class="campground__title">Latik Riverside</h4>
-					<p class="campground__details">
-						Philippines is one of the most dazzling countries in all of Asia.
-					</p>
-					<a
-						href="individualCampground.html"
-						class="campground__btn"
-						data-camp="Latik Riverside"
-						>View Campground</a
-					>
-				</div>
-
-				<div class="campground">
-					<img
-						class="campCard-img campground__img"
-						src="@/assets/images/CampImages/HighQualityImages/Buloy-Springs.jpg"
-						alt="an image of Buloy Springs"
-					/>
-
-					<h4 class="campground__title">Buloy Springs</h4>
-					<p class="campground__details">
-						This is one of the best beach camping sites, beautiful and pristine.
-					</p>
-					<a
-						href="individualCampground.html"
-						class="campground__btn"
-						data-camp="Buloy Springs"
-						>View Campground</a
-					>
-				</div> -->
 			</div>
 		</main>
 		<footer class="footer">
@@ -209,8 +94,8 @@ import { ref, watch } from "vue";
 import MainNav from "@/components/navigation/MainNav.vue";
 import BaseInput from "@/components/BaseInput.vue";
 
-import { useField, useForm } from "vee-validate";
-import { object, string } from "yup";
+// import { useField, useForm } from "vee-validate";
+// import { object, string } from "yup";
 
 import getCollections from "@/composables/getCollections";
 import { gsap } from "gsap";
@@ -273,14 +158,24 @@ export default {
 		const truncateText = (text) => {
 			return `${text.split(" ").slice(0,16).join(" ")}...`
 		}
-		const onEnter = (el, done) => {
-			gsap.from(el, {
+		const onEnter = () => {
+			gsap.fromTo(".campground", {
 				autoAlpha: 0.01,
 				stagger: 0.2,
-				y: 10,
-				onComplete: done
+				// y: 50,
+				// onComplete: done
+			}, {
+				autoAlpha: 1,
 			})
 		} 
+		// const onEnter = (el, done) => {
+		// 	gsap.from(el, {
+		// 		autoAlpha: 0.01,
+		// 		stagger: 0.2,
+		// 		y: 50,
+		// 		onComplete: done
+		// 	})
+		// } 
 
 		return {
 			search,
@@ -361,16 +256,13 @@ fieldset {
 	transition: all 0.3s ease;
 }
 
-/* !campgrounds cards=========================== */
-/* !campgrounds cards=========================== */
-/* !campgrounds cards=========================== */
-/* !campgrounds cards=========================== */
 .campgrounds {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(250px, 320px));
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 	grid-gap: 2em;
 	padding: 3.5em 0;
 	justify-content: center;
+	min-height: 20em;
 }
 .campground {
 	padding: 0.8em;
@@ -381,12 +273,12 @@ fieldset {
 	flex-direction: column;
 	transition: all 0.3s;
 	border-radius: 5.5px;
-	max-width: 320px;
 	justify-self: center;
+	max-width: 320px;
 }
-/* .campground:hover {
+.campground:hover {
 	transform: scale(1.02);
-} */
+}
 
 .campground__img {
 	width: 100%;
@@ -411,10 +303,13 @@ fieldset {
 	transition: all 0.3s;
 	border-radius: 5px;
 }
+.campground__btn:active {
+	transform: translateY(4px);
+	box-shadow:inset -4px -4px 10px rgba(0, 0, 0, 0.3);
+}
 .campground__btn:hover {
 	transform: translateY(-4px);
 	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-	/* transform: translateZ(20px); */
 }
 @media (min-width: 580px) {
 	.form__search {
@@ -441,11 +336,7 @@ fieldset {
 
 @media (min-width: 595px) {
 	.campgrounds {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 		justify-content: space-between;
-		grid-gap: 2em;
-		padding: 3.5em 0;
 	}
 }
 /*!TODO edit this remove .nav-bar */
@@ -473,11 +364,13 @@ fieldset {
 		grid-column: 1/-1;
 	}
 	.campgrounds {
-		padding-top: 2em;
 		grid-row: 2;
 		grid-column: 1/-1;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 	}
+.campground {
+	justify-self: initial;
+	max-width: 100%;
+}
 	.campground__img {
 		min-height: 150px;
 	}
@@ -487,7 +380,6 @@ fieldset {
 }
 @media (min-width: 1200px) {
 	.campgrounds {
-		grid-gap: 2em;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 	}
 }

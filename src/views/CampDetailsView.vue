@@ -4,15 +4,15 @@
 
 		<main class="main detailsPageContents">
 			<template v-if="campground.length">
-				<div class="campground-details cardInfo">
+				<div class="campground__details cardInfo">
 					<div class="card">
 						<img
 							src="@/assets/images/CampImages/HighQualityImages/Mount-Ulap.png"
 							alt="an image of mount ulap"
 						/>
-						<div class="card-heading">
+						<div class="card__heading">
 							<!-- <h2 class="card-title">Mount Ulap</h2> -->
-							<h2 class="card-title">{{ campground[0].title }}</h2>
+							<h2 class="card__title">{{ campground[0].title }}</h2>
 							<p>
 								<span class="dollar">$</span>
 								<!-- <span class="amount">104.99</span> -->
@@ -21,7 +21,7 @@
 								<span class="time">night</span>
 							</p>
 						</div>
-						<p class="card-description">
+						<p class="card__description">
 							{{ campground[0].description }}
 						</p>
 						<!-- <p class="card-description">
@@ -40,21 +40,20 @@
 				<div class="reviews">
 					<template v-if="campground[0].comments.length">
 						<div
-							class="review-comment"
+							class="review__comment"
 							v-for="comment in comments"
 							:key="comment.name"
 						>
-							<div class="review-comment-title title-flex">
+							<div class="review__comment--title">
 								<h3>{{ comment.name }}</h3>
 								<p>{{ formatDate(comment.commentedAt) }}</p>
 							</div>
-							<p class="review-comment-details">
+							<p class="review__comment--details">
 								{{ comment.description }}
 							</p>
 						</div>
 					</template>
-					<div class="review-comment" v-else>
-						<p>No comment.</p>
+					<div class="review__comment noComments" v-else>
 						<p>Be the first to leave a comment.</p>
 					</div>
 					<!-- <div class="review-comment">
@@ -87,8 +86,7 @@
 							people to ruin the experience.
 						</p>
 					</div> -->
-					<div class="btnContainer inner-padding">
-						<!-- todo how to pass params through routerlinks to the next page -->
+					<div class="btnContainer">
 						<RouterLink
 							:to="{ name: 'CommentsView' }"
 							class="ctaBtn cta-leave-a-review"
@@ -104,7 +102,8 @@
 					</div>
 				</div>
 				<div class="mapContainer">
-					<BaseMap />
+					<!-- <BaseMap /> -->
+					<TomTomMap />
 					<!-- <section id="map"></section> -->
 					<!-- <img src="@/assets/images/Map.png" alt="an image of a map" /> -->
 				</div>
@@ -123,7 +122,8 @@
 </template>
 
 <script>
-import BaseMap from "@/components/BaseMap.vue"
+import TomTomMap from "@/components/TomTomMap.vue"
+// import BaseMap from "@/components/BaseMap.vue"
 import { ref, computed } from "vue";
 import MainNav from "@/components/navigation/MainNav.vue";
 import getCollection from "../composables/getCollection";
@@ -137,7 +137,8 @@ export default {
 	name: "DetailsComponent",
 	components: {
 		MainNav,
-		BaseMap,
+		// BaseMap,
+		TomTomMap,
 	},
 	props: ["id"],
 	setup(props) {
@@ -207,7 +208,7 @@ main {
 .card * + * {
 	margin-top: 0.5em;
 }
-.card-heading {
+.card__heading {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -223,7 +224,7 @@ main {
 	padding-top: 0;
 	margin-bottom: 3em;
 }
-.review-comment-title {
+.review__comment--title {
 	margin-bottom: 1em;
 	display: flex;
 	align-items: center;
@@ -232,8 +233,13 @@ main {
 .reviews > * + * {
 	border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-.review-comment {
+.review__comment {
 	padding: 1.5em 0;
+}
+.noComments {
+	text-align: center;
+	line-height: 1.5;
+	font-style: italic;
 }
 .btnContainer {
 	padding: 2em 0 0;
@@ -253,12 +259,14 @@ main {
 	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
 	border-radius: 5px;
 	margin-bottom: 1em;
-	overflow: hidden;
+	/* overflow: hidden; */
+	/* max-height: 25em; */
+	height: 20em;
 }
-.mapContainer img {
+/* .mapContainer img {
 	width: 100%;
 	height: 100%;
-}
+} */
 
 @media (min-width: 768px) and (max-width: 991px) {
 	.nav-bar,
@@ -278,7 +286,7 @@ main {
 		width: 100%;
 		/* height: 300px; */
 	}
-	.campground-details {
+	.campground__details {
 		grid-column: 2;
 		grid-row: 1;
 	}
@@ -294,7 +302,7 @@ main {
 		padding: 2em;
 		padding-top: 0;
 		margin-bottom: 0em;
-		/* width: 100%; */
+		width: 100%;
 	}
 	/*.review-comment {
 		width: 100%;
