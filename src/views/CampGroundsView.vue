@@ -58,7 +58,7 @@
 							/>
 			
 							<h4 class="campCard-title campground__title">
-								{{ campground.title }}
+								{{ capitalizeWord(campground.title) }}
 							</h4>
 							<p class="campCard-details campground__details">
 								{{ truncateText(campground.description) }}
@@ -135,21 +135,13 @@ export default {
 			if (nV === "") {
 				fetchDataFromDb("users");
 			}
-			console.log(nV);
+			// console.log(nV);
 		})
 
-		// handle Search
-		// const submit = handleSubmit(values => {
-		// 	console.log("submit", values.search);
-		// // const { error, documents: campgrounds } = getCollections("users", ["title", "==", values.search])
-		// 	fetchDataFromDb("users", ["title", "==", values.search])
-		// 	if (values.search === "") {
-		// 		fetchDataFromDb("users")
-		// 	}
-		// })
+
 
 		const submit = () => {
-			fetchDataFromDb("users", ["title", "==", search.value])
+			fetchDataFromDb("users", ["title", "==", search.value.trim().toLowerCase()])
 		}
 
 		const joinTitle = (title) => {
@@ -176,6 +168,9 @@ export default {
 		// 		onComplete: done
 		// 	})
 		// } 
+		const capitalizeWord = (word) => {
+			return word.split(" ").map(w => w[0].toUpperCase() + w.slice(1)).join(" ")
+		}
 
 		return {
 			search,
@@ -185,7 +180,8 @@ export default {
 			joinTitle,
 			onEnter,
 			truncateText,
-			error
+			error,
+			capitalizeWord,
 		};
 	},
 };

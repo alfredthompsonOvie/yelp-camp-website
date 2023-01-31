@@ -4,6 +4,11 @@
 
 <script>
 import tt from "@tomtom-international/web-sdk-maps";
+// import tt  from "@tomtom-international/web-sdk-services"
+import {
+	geocode,
+	reverseGeocode,
+} from "@tomtom-international/web-sdk-services/esm";
 import { onMounted, ref } from "vue";
 
 export default {
@@ -20,6 +25,7 @@ export default {
 			map.addControl(new tt.FullscreenControl());
 			map.addControl(new tt.NavigationControl());
 			addMarker(map);
+			// geocoding()
 		});
 		function addMarker(map) {
 			// const tt = window.tt;
@@ -27,56 +33,47 @@ export default {
 			var popupOffset = 25;
 
 			var marker = new tt.Marker().setLngLat(location).addTo(map);
-			var popup = new tt.Popup({ offset: popupOffset });
-			// var popup = new tt.Popup({ offset: popupOffset }).setHTML(
-			// 	"Your address!"
-			// );
-			reverseGeocoding(marker, popup);
+			// var popup = new tt.Popup({ offset: popupOffset });
+			var popup = new tt.Popup({ offset: popupOffset }).setHTML(
+				"Your address!"
+			);
+			// reverseGeocoding(marker, popup);
+			// geocoding(marker, popup)
+			// geocoding();
 			marker.setPopup(popup).togglePopup();
 		}
 
-		function reverseGeocoding(marker, popup) {
-			// const tt = window.tt;
-			tt.services
-				.reverseGeocode({
-					// key: 'iTF86GRA2V5iGjM6LMMV54lrK8v6zC1w',
-					key: "U6CQy1n0OaKcbdAAaQf2QAtAJuh95lqn",
-					position: marker.getLngLat(),
-				})
-				.go()
-				.then(function (result) {
-					console.log(result.addresses[0].address.freeformAddress);
-					popup.setHTML(result.addresses[0].address.freeformAddress);
-				});
-		}
-		function geocoding(marker, popup) {
-			tt.services
-				.geocode({
-					key: "U6CQy1n0OaKcbdAAaQf2QAtAJuh95lqn",
-					query: "Amsterdam, The Netherlands",
-				})
-				.then(function (result) {
-					console.log(result);
-				});
-		}
-
-		// reverseGeocode
-		//     function callbackFn(response) {
-		//   console.log(response);
+		// function reverseGeocoding(marker, popup) {
+		// 	// const tt = window.tt;
+		// 	reverseGeocode({
+		// 		key: "U6CQy1n0OaKcbdAAaQf2QAtAJuh95lqn",
+		// 		position: marker.getLngLat(),
+		// 	})
+		// 		// .go()
+		// 		.then(function (result) {
+		// 			console.log(result.addresses[0].address.freeformAddress);
+		// 			popup.setHTML(result.addresses[0].address.freeformAddress);
+		// 		});
 		// }
-		// tt.services.reverseGeocode({
-		//   key: <Your API key>,
-		//   position: '19.449: 51.759'
-		// }).then(callbackFn);
 
-		// Geocode
-		// function callbackFn(result) {
-		//   console.log(result);
-		// };
-		// tt.services.geocode({
-		//   key: <Your API Key>,
-		//   query: 'Amsterdam, The Netherlands'
-		// }).then(callbackFn);
+		// function geocoding() {
+		// 	geocode({
+		// 		batchMode: "sync",
+		// 		key: "U6CQy1n0OaKcbdAAaQf2QAtAJuh95lqn",
+		// 		query: "Amsterdam, The Netherlands",
+		// 		language: "en-GB",
+		// 		limit: 5,
+		// 		baseURL: "api.tomtom.com",
+		// 		versionNumber: "2",
+		// 		ext: "json"
+		// 	})
+		// 		.then(function (result) {
+		// 			console.log(result);
+		// 		})
+		// 		.catch((error) => {
+		// 			console.log(error);
+		// 		});
+		// }
 
 		return {
 			mapRef,

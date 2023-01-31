@@ -50,7 +50,9 @@
 						/>
 						<p class="errorMessage">{{ errors.image }}</p>
 					</div>
-
+					<section v-if="error">
+						{{ error }}
+					</section>
 					<!-- button -->
 					<button 
 					type="submit" 
@@ -105,13 +107,13 @@ export default {
 			"image/webp",
 		]);
 
-		const { url, error, filePath, uploadImage } = useStorage();
+		const { url, error, uploadImage } = useStorage();
 		const { sendData } = useFirestore();
 
 		const { user } = getUser()
-		console.log(user.value);
+		// console.log(user.value);
 		function isValidFileType(fileType) {
-			console.log(fileType);
+			// console.log(fileType);
 			return AllowedFileTypes.value.includes(fileType);
 		}
 
@@ -148,7 +150,7 @@ export default {
 			// console.log(url.value)
 
 			const sendingData = await sendData({
-				title: values.campgroundName,
+				title: lowerCaseWord(values.campgroundName.trim()),
 				price: values.price,
 				url: url.value,
 				description: values.description,
@@ -164,6 +166,9 @@ export default {
 
 		// console.log(user);
 
+		const lowerCaseWord = (word) => {
+			return word.split(" ").map(w =>  w.toLowerCase()).join(" ")
+		}
 		return {
 			submit,
 			campgroundName,
@@ -173,6 +178,7 @@ export default {
 			description,
 			errors,
 			isPending,
+			error,
 		};
 	},
 };

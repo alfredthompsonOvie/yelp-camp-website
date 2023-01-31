@@ -12,7 +12,9 @@
 						/>
 						<div class="card__heading">
 							<!-- <h2 class="card-title">Mount Ulap</h2> -->
-							<h2 class="card__title">{{ campground[0].title }}</h2>
+							<h2 class="card__title">
+								{{ capitalizeWord(campground[0].title) }}
+							</h2>
 							<p>
 								<span class="dollar">$</span>
 								<!-- <span class="amount">104.99</span> -->
@@ -45,7 +47,7 @@
 							:key="comment.name"
 						>
 							<div class="review__comment--title">
-								<h3>{{ comment.name }}</h3>
+								<h3>{{ capitalizeWord(comment.name) }}</h3>
 								<p>{{ formatDate(comment.commentedAt) }}</p>
 							</div>
 							<p class="review__comment--details">
@@ -102,9 +104,7 @@
 					</div>
 				</div>
 				<div class="mapContainer">
-					<!-- <BaseMap /> -->
-					<TomTomMap />
-					<!-- <section id="map"></section> -->
+					<BaseMap :query="campground[0].title" />
 					<!-- <img src="@/assets/images/Map.png" alt="an image of a map" /> -->
 				</div>
 			</template>
@@ -122,23 +122,20 @@
 </template>
 
 <script>
-import TomTomMap from "@/components/TomTomMap.vue"
-// import BaseMap from "@/components/BaseMap.vue"
+import BaseMap from "@/components/BaseMap.vue";
 import { ref, computed } from "vue";
 import MainNav from "@/components/navigation/MainNav.vue";
 import getCollection from "../composables/getCollection";
 
 import { useUserIdStore } from "@/stores/userId";
 
-
 // import { formatDistance } from 'date-fns';
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow } from "date-fns";
 export default {
 	name: "DetailsComponent",
 	components: {
 		MainNav,
-		// BaseMap,
-		TomTomMap,
+		BaseMap,
 	},
 	props: ["id"],
 	setup(props) {
@@ -168,16 +165,27 @@ export default {
 		});
 
 		const formatDate = (pastDate) => {
-			const result = formatDistanceToNow(new Date(pastDate), { includeSeconds: true, addSuffix: true })
+			const result = formatDistanceToNow(new Date(pastDate), {
+				includeSeconds: true,
+				addSuffix: true,
+			});
 
 			return result;
-		}
+		};
+
+		const capitalizeWord = (word) => {
+			return word
+				.split(" ")
+				.map((w) => w[0].toUpperCase() + w.slice(1))
+				.join(" ");
+		};
 
 		return {
 			campground,
 			comments,
 			formatDate,
-			dataError
+			dataError,
+			capitalizeWord,
 		};
 	},
 };
