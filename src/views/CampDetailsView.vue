@@ -160,7 +160,7 @@ export default {
 		const comments = computed(() => {
 			const cmtArr = [];
 			campground.value[0].comments.forEach((d) => cmtArr.push(JSON.parse(d)));
-			console.log(cmtArr);
+			// console.log(cmtArr);
 			return cmtArr;
 		});
 
@@ -269,7 +269,7 @@ main {
 	margin-bottom: 1em;
 	/* overflow: hidden; */
 	/* max-height: 25em; */
-	height: 20em;
+	/* height: 22em; */
 }
 /* .mapContainer img {
 	width: 100%;
