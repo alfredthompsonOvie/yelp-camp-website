@@ -10,10 +10,15 @@
 		<ul class="mobileNav__list" v-show="mobileNav">
 			<template v-if="user">
 				<li class="username mobileNav__item">
-					{{ user.displayName }}
+					<p class="mobileNav__link">
+						{{ user.displayName }}
+					</p>
 				</li>
 				<li class="mobileNav__item">
-					<button @click.prevent="logUserOut">Logout</button>
+					<button 
+					@click.prevent="logUserOut"
+					class="mobileNav__link btnLogout"
+					>Logout</button>
 				</li>
 			</template>
 			<template v-if="!user">
@@ -98,9 +103,6 @@ export default {
 		const router = useRouter();
 
 		const { user } = getUser();
-		// const userName = ref(user.value?.displayName)
-		// console.log(user.value.displayName);
-		// const loggedIn = userStore.isUserLoggedIn;
 
 		function checkScreen() {
 			windowWidth.value = window.innerWidth;
@@ -132,7 +134,6 @@ export default {
 					gsap.to([".mobileNav__list", ".mobileNav__item"], {
 						clearProps: "all",
 					});
-					console.log("reverse complete");
 				},
 			});
 
@@ -226,6 +227,10 @@ export default {
 	transition: 0.3s;
 	color: #eee;
 	color: #555;
+}
+.btnLogout{
+	text-align: center;
+	display: inline;
 }
 .hamburger {
 	margin-left: auto;

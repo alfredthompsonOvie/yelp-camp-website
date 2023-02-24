@@ -111,9 +111,7 @@ export default {
 		const { sendData } = useFirestore();
 
 		const { user } = getUser()
-		// console.log(user.value);
 		function isValidFileType(fileType) {
-			// console.log(fileType);
 			return AllowedFileTypes.value.includes(fileType);
 		}
 
@@ -143,13 +141,11 @@ export default {
 		const { handleChange, value: image } = useField("image");
 
 		const submit = handleSubmit(async (values) => {
-			// console.log("submited", values);
-			// console.log("submited image", values.image);
 			isPending.value = true;
 			await uploadImage(values.image)
-			// console.log(url.value)
 
-			const sendingData = await sendData({
+			// clue
+			await sendData({
 				title: lowerCaseWord(values.campgroundName.trim()),
 				price: values.price,
 				url: url.value,
@@ -159,12 +155,9 @@ export default {
 				comments: [],
 				userUid: user.value.uid,
 			})
-			console.log(sendingData);
 			isPending.value = false
 			router.push({ name: "campgrounds" })
 		});
-
-		// console.log(user);
 
 		const lowerCaseWord = (word) => {
 			return word.split(" ").map(w =>  w.toLowerCase()).join(" ")

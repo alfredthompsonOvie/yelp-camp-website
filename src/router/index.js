@@ -1,5 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { auth } from "../firebase/config"
+
+const requireAuth = (to, from, next)=>{
+  let user = auth.currentUser;
+  if (!user) {
+    next({name: 'SignIn'})
+  } else {
+    next()
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,12 +51,14 @@ const router = createRouter({
       path: '/comment',
       name: 'CommentsView',
       component: () => import('../views/forms/CommentsView.vue'),
-      props: true
+      props: true,
+      beforeEnter: requireAuth
     },
     {
       path: '/addcamp',
       name: 'AddCampgroundView',
-      component: () => import('@/views/forms/AddCampgroundView.vue')
+      component: () => import('@/views/forms/AddCampgroundView.vue'),
+      beforeEnter: requireAuth
     },
     {
       path: '/login',

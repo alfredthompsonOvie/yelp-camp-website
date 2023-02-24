@@ -135,7 +135,6 @@ export default {
 			if (nV === "") {
 				fetchDataFromDb("users");
 			}
-			// console.log(nV);
 		})
 
 

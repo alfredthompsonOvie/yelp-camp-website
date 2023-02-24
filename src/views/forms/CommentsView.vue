@@ -52,7 +52,6 @@ export default {
 		const { user } = getUser();
 
 		const store = useUserIdStore();
-		console.log(store.userId);
 		const { error, addComments } = useAddComments();
 
 		const isPending = ref(false);
@@ -73,7 +72,6 @@ export default {
 				name: user.value.displayName,
 				description: values.description,
 			}
-			console.log(details);
 
 			await addComments("users", store.userId, details)
 			isPending.value = false;

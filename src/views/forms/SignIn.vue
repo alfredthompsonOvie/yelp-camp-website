@@ -114,11 +114,8 @@ export default {
 			await login(values.email, values.password)
 
 			if (!error.value) {
-				console.log(values);
-				// user.logUserIn(values.email)
 				router.push({ name: "campgrounds" })
 			}
-
 		}
 
 		const submit = handleSubmit(submissionHandler);
