@@ -161,7 +161,6 @@ export default {
 		const submit = handleSubmit(submissionHandler);
 
 		return {
-			fullname,
 			username,
 			email,
 			password,
