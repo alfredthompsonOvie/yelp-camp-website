@@ -1,6 +1,18 @@
 <template>
 	<div class="container">
-		<SubNav />
+		<nav class="nav__bar nav-bar__sign-in">
+		<RouterLink to="/" class="main__logo marginRight">
+			<img src="@/assets/images/Logo.svg" alt="yelpCamp logo" />
+		</RouterLink>
+		<ul class="nav-list">
+			<li class="nav-item">
+				<RouterLink :to="{ name: 'campgrounds' }" class="backBtn">
+					<span>&#8592;</span>
+					<span>Back to campgrounds</span>
+				</RouterLink>
+			</li>
+		</ul>
+	</nav>
 
 		<form class="form" @submit.prevent="submit">
 			<fieldset class="form__contents">
@@ -71,7 +83,7 @@
 </template>
 
 <script>
-import SubNav from "@/components/navigation/SubNav.vue";
+// import SubNav from "@/components/navigation/SubNav.vue";
 import BaseInput from "@/components/BaseInput.vue";
 
 import { useField, useForm } from "vee-validate";
@@ -86,7 +98,7 @@ import useLogin from "@/composables/useLogin";
 export default {
 	name: "SignIn",
 	components: {
-		SubNav,
+		// SubNav,
 		BaseInput,
 	},
 	setup() {
@@ -133,6 +145,26 @@ export default {
 </script>
 
 <style scoped>
+.nav__bar {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	height: var(--height);
+	padding: 0 1.5em;
+	position: relative;
+}
+.backBtn {
+	font-size: 0.7rem;
+	align-self: end;
+	text-align: right;
+	display: inline-block;
+	color: #888;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+	.nav__bar {
+		padding: 0 3em;
+	}
+}
 .form {
 	padding: 0 1.5em;
 	margin: 3em 0;
